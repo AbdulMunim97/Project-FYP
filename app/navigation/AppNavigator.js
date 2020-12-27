@@ -50,5 +50,4 @@ const AppNavigator = () => (
     />
   </Tab.Navigator>
 );
-
 export default AppNavigator;

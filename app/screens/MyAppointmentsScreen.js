@@ -14,7 +14,31 @@ function MyAppointmentsScreen(props) {
       <View>
         <Header title={"My Appointments"} />
       </View>
-      <ListItem title={"10:00 AM "} subTitle={"27th November 2020"} />
+      <ListItem
+        title={"10:00 AM "}
+        subTitle={"27th November 2020"}
+        name={"Nouman"}
+      />
+      <ListItem
+        title={"10:00 AM "}
+        subTitle={"27th November 2020"}
+        name={"Nouman"}
+      />
+      <ListItem
+        title={"10:00 AM "}
+        subTitle={"27th November 2020"}
+        name={"Nouman"}
+      />
+      <ListItem
+        title={"10:00 AM "}
+        subTitle={"27th November 2020"}
+        name={"Nouman"}
+      />
+      <ListItem
+        title={"10:00 AM "}
+        subTitle={"27th November 2020"}
+        name={"Nouman"}
+      />
     </ImageBackground>
   );
 }
