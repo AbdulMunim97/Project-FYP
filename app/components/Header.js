@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import colors from "../config/colors";
 import AppText from "../components/AppText";
@@ -22,6 +23,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     paddingBottom: 15,
+  },
+  icon: {
+    flexDirection: "row",
   },
 });
 

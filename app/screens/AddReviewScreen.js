@@ -14,7 +14,7 @@ import Header from "../components/Header";
 
 const { width: WIDTH } = Dimensions.get("window");
 
-function AddReviewScreen(props) {
+function AddReviewScreen({ navigation }) {
   return (
     <ImageBackground
       //blurRadius={5}
