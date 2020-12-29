@@ -1,10 +1,16 @@
 import React from "react";
 import { useState } from "react";
-import { View, ImageBackground, StyleSheet } from "react-native";
+import {
+  View,
+  ImageBackground,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import AppButton from "../components/AppButton";
+import Header from "../components/Header";
 
 function BookAppointmentScreen({ navigation }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -42,6 +48,9 @@ function BookAppointmentScreen({ navigation }) {
       style={styles.background}
       source={require("../assets/background1.jpg")}
     >
+      <View width={"100%"}>
+        <Header title={"Book Appointment"} />
+      </View>
       <View style={styles.button}>
         <AppButton color="primary" title="Pick Date" change={showDatePicker} />
         <AppButton
@@ -77,7 +86,7 @@ function BookAppointmentScreen({ navigation }) {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    justifyContent: "center",
+    //justifyContent: "center",
     alignItems: "center",
   },
   button: {

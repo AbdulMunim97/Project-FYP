@@ -1,4 +1,5 @@
 import React from "react";
+import { TouchableOpacity } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DrawerStack from "../navigation/DrawerStack";
@@ -10,7 +11,7 @@ import DealsScreen from "../screens/DealsScreen";
 
 const Stack = createStackNavigator();
 
-const FeedNavigator = (props) => (
+const FeedNavigator = ({ navigation }) => (
   <Stack.Navigator
     screenOptions={{
       headerStyle: { backgroundColor: "#aa3a3a" },
@@ -23,12 +24,14 @@ const FeedNavigator = (props) => (
       component={HomeScreen}
       options={{
         headerLeft: ({ color }) => (
-          <MaterialCommunityIcons
-            name="menu"
-            color={color}
-            size={30}
-            //onPress={props.navigation.openDrawer()}
-          />
+          <TouchableOpacity>
+            <MaterialCommunityIcons
+              name="menu"
+              color={color}
+              size={30}
+              onPress={() => navigation.openDrawer()}
+            />
+          </TouchableOpacity>
         ),
       }}
     />

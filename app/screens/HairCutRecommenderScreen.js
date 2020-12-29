@@ -1,6 +1,7 @@
 import React from "react";
-import { ImageBackground, StyleSheet } from "react-native";
-import HomeCard from "../components/HomeCard";
+import { ImageBackground, StyleSheet, View } from "react-native";
+import AppButton from "../components/AppButton";
+import Header from "../components/Header";
 
 function HairCutRecommenderScreen(props) {
   return (
@@ -9,15 +10,31 @@ function HairCutRecommenderScreen(props) {
       style={styles.background}
       source={require("../assets/background1.jpg")}
     >
-      <HomeCard title="COMING SOON" />
+      <View width={"100%"}>
+        <Header title={"Haircut Recommender"} />
+      </View>
+      <View style={styles.buttonContainer}>
+        <AppButton
+          // change={() => {
+          //   navigation.navigate("Login");
+          // }}
+          title="Upload an Image"
+          color="primary"
+        />
+      </View>
     </ImageBackground>
   );
 }
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    justifyContent: "center",
-    //alignItems: "center",
+    //justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonContainer: {
+    //padding: 20,
+    width: "95%",
+    marginVertical: 5,
   },
 });
 

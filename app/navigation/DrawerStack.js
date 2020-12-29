@@ -2,7 +2,6 @@ import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import AppNavigator from "./AppNavigator";
 import ProfileScreen from "../screens/ProfileScreen";
-import ProfileNavigator from "./ProfileNavigator";
 import AddReviewScreen from "../screens/AddReviewScreen";
 import MyReviewsScreen from "../screens/MyReviewsScreen";
 import MyAppointmentsScreen from "../screens/MyAppointmentsScreen";

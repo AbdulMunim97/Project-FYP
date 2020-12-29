@@ -64,9 +64,9 @@ function RegisterScreen({ navigation }) {
             size={28}
             color={"rgba(255,255,255,0.7) "}
           />
-          <TouchableOpacity style={styles.btnEye}>
+          {/* <TouchableOpacity style={styles.btnEye}>
             <Icon name={"ios-eye"} size={26} color={"rgba(255,255,255,0.7) "} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <View style={styles.inputContainer}>
           <TextInput
@@ -82,9 +82,9 @@ function RegisterScreen({ navigation }) {
             size={28}
             color={"rgba(255,255,255,0.7) "}
           />
-          <TouchableOpacity style={styles.btnEye}>
+          {/* <TouchableOpacity style={styles.btnEye}>
             <Icon name={"ios-eye"} size={26} color={"rgba(255,255,255,0.7) "} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <View style={styles.inputContainer}>
           <TextInput

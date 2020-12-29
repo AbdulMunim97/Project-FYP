@@ -7,8 +7,6 @@ import HairCutRecommenderScreen from "../screens/HairCutRecommenderScreen";
 
 import colors from "../config/colors";
 import FeedNavigator from "./FeedNavigator";
-import AppointmentNavigator from "./AppointmentNavigator";
-import RecommenderNavigator from "./RecommenderNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -32,7 +30,7 @@ const AppNavigator = () => (
     />
     <Tab.Screen
       name="Appointments"
-      component={AppointmentNavigator}
+      component={BookAppointmentScreen}
       options={{
         tabBarIcon: ({ size, color }) => (
           <MaterialCommunityIcons name="calendar" size={size} color={color} />
@@ -41,7 +39,7 @@ const AppNavigator = () => (
     />
     <Tab.Screen
       name="Find Hairstyle"
-      component={RecommenderNavigator}
+      component={HairCutRecommenderScreen}
       options={{
         tabBarIcon: ({ size, color }) => (
           <MaterialCommunityIcons name="magnify" size={size} color={color} />
