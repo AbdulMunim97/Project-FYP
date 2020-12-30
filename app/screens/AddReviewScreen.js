@@ -11,6 +11,7 @@ import AppText from "../components/AppText";
 import colors from "../config/colors";
 import AppButton from "../components/AppButton";
 import Header from "../components/Header";
+import AppNavigator from "../navigation/AppNavigator";
 
 const { width: WIDTH } = Dimensions.get("window");
 
@@ -52,6 +53,7 @@ function AddReviewScreen({ navigation }) {
           //change
         />
       </View>
+      <AppNavigator />
     </ImageBackground>
   );
 }

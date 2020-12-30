@@ -1,10 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, ImageBackground, StyleSheet, ScrollView } from "react-native";
 
 import AppButton from "../components/AppButton";
 import Card from "../components/Card";
 
 function ProductsScreen({ navigation }) {
+  const [skin, setSkin] = useState([]);
+  const [hair, setHair] = useState([]);
+  const [beard, setBeard] = useState([]);
+
+  useEffect(() => {
+    fetch("http://192.168.100.13:5000/allskincare")
+      .then((res) => res.json())
+      .then((result) => {
+        setSkin(result);
+      })
+      .catch((error) => console.log(error));
+    fetch("http://192.168.100.13:5000/allhaircare")
+      .then((res) => res.json())
+      .then((result) => {
+        setHair(result);
+      })
+      .catch((error) => console.log(error));
+    fetch("http://192.168.100.13:5000/allbeardcare")
+      .then((res) => res.json())
+      .then((result) => {
+        setBeard(result);
+      })
+      .catch((error) => console.log(error));
+  }, []);
   return (
     <ImageBackground
       //blurRadius={5}
@@ -18,7 +42,40 @@ function ProductsScreen({ navigation }) {
           marginBottom: 5,
         }}
       >
-        <Card
+        {skin.map((item) => {
+          return (
+            <Card
+              key={item._id}
+              title={item.title}
+              description={item.body}
+              price={item.price}
+              image={{ uri: item.photo }}
+            />
+          );
+        })}
+        {hair.map((item) => {
+          return (
+            <Card
+              key={item._id}
+              title={item.title}
+              description={item.body}
+              price={item.price}
+              image={{ uri: item.photo }}
+            />
+          );
+        })}
+        {beard.map((item) => {
+          return (
+            <Card
+              key={item._id}
+              title={item.title}
+              description={item.body}
+              price={item.price}
+              image={{ uri: item.photo }}
+            />
+          );
+        })}
+        {/* <Card
           title="Shampoo"
           description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
           price="500\-"
@@ -29,7 +86,7 @@ function ProductsScreen({ navigation }) {
           description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
           price="500\-"
           image={require("../assets/product.jpg")}
-        />
+        /> */}
         {/* <View style={styles.background} style={styles.buttonContainer}>
           <AppButton
             change={() => navigation.navigate("Hair Care")}

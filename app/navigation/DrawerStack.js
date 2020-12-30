@@ -18,7 +18,7 @@ const DrawNavigator = (props) => (
     <Drawer.Screen name="My Reviews" component={MyReviewsScreen} />
     <Drawer.Screen name="Appointments" component={MyAppointmentsScreen} />
     <Drawer.Screen name="Help" component={HelpScreen} />
-    <Drawer.Screen name="Sign Out" component={AuthNavigator} />
+    {/* <Drawer.Screen name="Sign Out" component={AuthNavigator} /> */}
   </Drawer.Navigator>
 );
 

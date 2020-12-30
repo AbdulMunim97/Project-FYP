@@ -1,25 +1,24 @@
 import React from "react";
-import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import colors from "../config/colors";
-import AppText from "../components/AppText";
+
+import { useLinkProps } from "@react-navigation/native";
 
 function Header({ title, navigation }) {
   return (
     <View style={styles.background}>
-      <View>
-        <TouchableOpacity>
-          <Icon
-            style={styles.icon}
-            name={"menu"}
-            size={30}
-            color={colors.black}
-            onPress={() => navigation.openDrawer()}
-          />
-        </TouchableOpacity>
-      </View>
-      <AppText style={styles.title}>{title}</AppText>
+      <TouchableOpacity>
+        <Icon
+          style={styles.icon}
+          name={"menu"}
+          size={30}
+          color={colors.black}
+          //onPress={props.navigation.navigate.openDrawer()}
+        />
+      </TouchableOpacity>
+      <Text style={styles.title}>{title}</Text>
     </View>
   );
 }
@@ -32,8 +31,9 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   title: {
+    color: colors.white,
     fontSize: 20,
-    fontWeight: "600",
+    fontWeight: "700",
     paddingBottom: 13,
     flexDirection: "column",
   },
