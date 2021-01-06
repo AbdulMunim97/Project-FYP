@@ -1,28 +1,45 @@
 import React, { useEffect, useState } from "react";
-import { View, ImageBackground, StyleSheet, ScrollView } from "react-native";
+import {
+  RefreshControl,
+  ImageBackground,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
 
-import AppButton from "../components/AppButton";
 import Card from "../components/Card";
+
+const wait = (timeout) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, timeout);
+  });
+};
 
 function ProductsScreen({ navigation }) {
   const [skin, setSkin] = useState([]);
   const [hair, setHair] = useState([]);
   const [beard, setBeard] = useState([]);
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   useEffect(() => {
-    fetch("http://192.168.100.13:5000/allskincare")
+    fetch("http://192.168.10.14:5000/allskincare")
       .then((res) => res.json())
       .then((result) => {
         setSkin(result);
       })
       .catch((error) => console.log(error));
-    fetch("http://192.168.100.13:5000/allhaircare")
+    fetch("http://192.168.10.14:5000/allhaircare")
       .then((res) => res.json())
       .then((result) => {
         setHair(result);
       })
       .catch((error) => console.log(error));
-    fetch("http://192.168.100.13:5000/allbeardcare")
+    fetch("http://192.168.10.14:5000/allbeardcare")
       .then((res) => res.json())
       .then((result) => {
         setBeard(result);
@@ -41,6 +58,9 @@ function ProductsScreen({ navigation }) {
           paddingTop: 20,
           marginBottom: 5,
         }}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       >
         {skin.map((item) => {
           return (
@@ -75,35 +95,6 @@ function ProductsScreen({ navigation }) {
             />
           );
         })}
-        {/* <Card
-          title="Shampoo"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-          price="500\-"
-          image={require("../assets/product.jpg")}
-        />
-        <Card
-          title="Shampoo"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-          price="500\-"
-          image={require("../assets/product.jpg")}
-        /> */}
-        {/* <View style={styles.background} style={styles.buttonContainer}>
-          <AppButton
-            change={() => navigation.navigate("Hair Care")}
-            title="Hair Care"
-            color="secondary"
-          />
-          <AppButton
-            change={() => navigation.navigate("Skin Care")}
-            title="Skin Care"
-            color="primary"
-          />
-          <AppButton
-            change={() => navigation.navigate("Beard Care")}
-            title="Beard Care"
-            color="secondary"
-          />
-        </View> */}
       </ScrollView>
     </ImageBackground>
   );

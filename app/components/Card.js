@@ -10,7 +10,7 @@ function Card({ title, description, price, image }) {
       <Image style={styles.image} source={image} />
       <View style={styles.detailsContainer}>
         <AppText style={styles.title}>{title}</AppText>
-        <AppText style={styles.price}>{price}</AppText>
+        <AppText style={styles.price}>Price: {price}</AppText>
         <AppText style={styles.description}>{description}</AppText>
       </View>
     </View>

@@ -2,7 +2,6 @@ import React from "react";
 import { TouchableOpacity } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import DrawerStack from "../navigation/DrawerStack";
 
 import HomeScreen from "../screens/HomeScreen";
 import ProductsScreen from "../screens/ProductsScreen";

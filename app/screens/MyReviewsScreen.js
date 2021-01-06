@@ -1,9 +1,29 @@
 import React from "react";
-import { ImageBackground, ScrollView, StyleSheet } from "react-native";
+import {
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  RefreshControl,
+} from "react-native";
+
 import ServiceCard from "../components/ServiceCard";
 import Header from "../components/Header";
 
+const wait = (timeout) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, timeout);
+  });
+};
+
 function MyReviewsScreen(props) {
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
   return (
     <ImageBackground
       //blurRadius={5}
@@ -17,6 +37,9 @@ function MyReviewsScreen(props) {
           paddingTop: 20,
           marginBottom: 5,
         }}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       >
         <ServiceCard
           title="Service: Haircut"

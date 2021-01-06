@@ -7,7 +7,6 @@ import ListItem from "../components/ListItem";
 function MyAppointmentsScreen(props) {
   return (
     <ImageBackground
-      //blurRadius={5}
       style={styles.background}
       source={require("../assets/background1.jpg")}
     >
@@ -15,8 +14,8 @@ function MyAppointmentsScreen(props) {
         <Header title={"My Appointments"} />
       </View>
       <ListItem
-        title={"10:00 AM "}
-        subTitle={"27th November 2020"}
+        title={"10:00 AM hhshshshshs "}
+        subTitle={"27th November  hahahahaha2020"}
         name={"Nouman"}
       />
       <ListItem

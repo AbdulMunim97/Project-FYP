@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   ImageBackground,
@@ -6,14 +6,31 @@ import {
   View,
   TextInput,
   Dimensions,
-  TouchableOpacity,
+  Text,
+  Pressable,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+
 import AppButton from "../components/AppButton";
-import AppText from "../components/AppText";
+
 const { width: WIDTH } = Dimensions.get("window");
 
 function RegisterScreen({ navigation }) {
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleDateConfirm = (date) => {
+    console.warn("A date has been picked: ", date);
+    hideDatePicker();
+  };
   return (
     <ImageBackground
       //blurRadius={5}
@@ -64,28 +81,8 @@ function RegisterScreen({ navigation }) {
             size={28}
             color={"rgba(255,255,255,0.7) "}
           />
-          {/* <TouchableOpacity style={styles.btnEye}>
-            <Icon name={"ios-eye"} size={26} color={"rgba(255,255,255,0.7) "} />
-          </TouchableOpacity> */}
         </View>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder={"Confrim Password"}
-            secureTextEntry={true}
-            placeholderTextColor={"rgba(255,255,255,0.7)"}
-            underlineColorAndroid="transparent"
-          ></TextInput>
-          <Icon
-            style={styles.inputIcons}
-            name={"ios-lock"}
-            size={28}
-            color={"rgba(255,255,255,0.7) "}
-          />
-          {/* <TouchableOpacity style={styles.btnEye}>
-            <Icon name={"ios-eye"} size={26} color={"rgba(255,255,255,0.7) "} />
-          </TouchableOpacity> */}
-        </View>
+
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
@@ -101,17 +98,32 @@ function RegisterScreen({ navigation }) {
           />
         </View>
         <View style={styles.inputContainer}>
-          <TextInput
+          <Pressable
             style={styles.input}
             placeholder={"Date of Birth"}
             placeholderTextColor={"rgba(255,255,255,0.7)"}
             underlineColorAndroid="transparent"
-          ></TextInput>
+            onPress={showDatePicker}
+          >
+            <Text style={styles.text}>Date Of Birth</Text>
+          </Pressable>
           <Icon
             style={styles.inputIcons}
             name={"ios-calendar"}
             size={28}
             color={"rgba(255,255,255,0.7) "}
+          />
+        </View>
+        <View>
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="date"
+            datePickerModeAndroid={"spinner"}
+            minimumDate={new Date(1965, 1, 1)}
+            maximumDate={new Date(2011, 1, 1)}
+            date={new Date()}
+            onConfirm={handleDateConfirm}
+            onCancel={hideDatePicker}
           />
         </View>
         <View style={styles.signupBtn}>
@@ -175,6 +187,11 @@ const styles = StyleSheet.create({
     marginTop: 50,
     width: WIDTH - 15,
     //paddingLeft: 10,
+  },
+  text: {
+    fontSize: 16,
+    color: "rgba(255,255,255,0.7)",
+    paddingTop: 10,
   },
 });
 export default RegisterScreen;

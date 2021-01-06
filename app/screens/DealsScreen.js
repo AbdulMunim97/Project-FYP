@@ -1,13 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { ImageBackground, StyleSheet, ScrollView } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  ScrollView,
+  RefreshControl,
+} from "react-native";
 
 import ServiceCard from "../components/ServiceCard";
+
+const wait = (timeout) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, timeout);
+  });
+};
 
 function DealsScreen({ navigation }) {
   const [data, setData] = useState([]);
 
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
   useEffect(() => {
-    fetch("http://192.168.100.13:5000/alldeals")
+    fetch("http://192.168.10.14:5000/alldeals")
       .then((res) => res.json())
       .then((result) => {
         setData(result);
@@ -27,6 +46,9 @@ function DealsScreen({ navigation }) {
           paddingTop: 20,
           marginBottom: 5,
         }}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       >
         {data.map((item) => {
           return (

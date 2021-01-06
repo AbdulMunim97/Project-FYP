@@ -1,23 +1,15 @@
 import React from "react";
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { StyleSheet, View, Pressable, Text } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import colors from "../config/colors";
 
-import { useLinkProps } from "@react-navigation/native";
-
 function Header({ title, navigation }) {
   return (
     <View style={styles.background}>
-      <TouchableOpacity>
-        <Icon
-          style={styles.icon}
-          name={"menu"}
-          size={30}
-          color={colors.black}
-          //onPress={props.navigation.navigate.openDrawer()}
-        />
-      </TouchableOpacity>
+      <Pressable style={styles.icon} onPress={() => navigation.openDrawer()}>
+        <Icon name={"menu"} size={30} color={colors.black} />
+      </Pressable>
       <Text style={styles.title}>{title}</Text>
     </View>
   );
@@ -38,10 +30,10 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   icon: {
-    flexDirection: "row",
-    position: "relative",
-    top: 35,
-    right: 165,
+    //flexDirection: "column",
+    //position: "relative",
+    top: "45%",
+    right: "46%",
   },
 });
 

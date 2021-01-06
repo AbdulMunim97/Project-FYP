@@ -1,28 +1,45 @@
 import React, { useEffect, useState } from "react";
-import { ImageBackground, StyleSheet, View, ScrollView } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  RefreshControl,
+  ScrollView,
+} from "react-native";
 
-import AppButton from "../components/AppButton";
 import ServiceCard from "../components/ServiceCard";
+
+const wait = (timeout) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, timeout);
+  });
+};
 
 function ServicesScreen({ navigation }) {
   const [skin, setSkin] = useState([]);
   const [hair, setHair] = useState([]);
   const [beard, setBeard] = useState([]);
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   useEffect(() => {
-    fetch("http://192.168.100.13:5000/allskinservices")
+    fetch("http://192.168.10.14:5000/allskinservices")
       .then((res) => res.json())
       .then((result) => {
         setSkin(result);
       })
       .catch((error) => console.log(error));
-    fetch("http://192.168.100.13:5000/allhairservices")
+    fetch("http://192.168.10.14:5000/allhairservices")
       .then((res) => res.json())
       .then((result) => {
         setHair(result);
       })
       .catch((error) => console.log(error));
-    fetch("http://192.168.100.13:5000/allbeardservices")
+    fetch("http://192.168.10.14:5000/allbeardservices")
       .then((res) => res.json())
       .then((result) => {
         setBeard(result);
@@ -42,6 +59,9 @@ function ServicesScreen({ navigation }) {
           paddingTop: 10,
           marginBottom: 5,
         }}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       >
         {skin.map((item) => {
           return (

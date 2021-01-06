@@ -7,7 +7,6 @@ import {
   ImageBackground,
 } from "react-native";
 
-import AppText from "../components/AppText";
 import colors from "../config/colors";
 import AppButton from "../components/AppButton";
 import Header from "../components/Header";
@@ -53,7 +52,9 @@ function AddReviewScreen({ navigation }) {
           //change
         />
       </View>
-      <AppNavigator />
+      <View>
+        <AppNavigator />
+      </View>
     </ImageBackground>
   );
 }

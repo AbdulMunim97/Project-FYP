@@ -1,5 +1,7 @@
 import React from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Button, TouchableOpacity } from "react-native";
+
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import AppText from "./AppText";
 import colors from "../config/colors";
@@ -10,6 +12,19 @@ function ListItem({ title, subTitle, name }) {
       <AppText style={styles.title}>{title}</AppText>
       <AppText style={styles.subTitle}>{subTitle}</AppText>
       <AppText style={styles.subTitle}>{name}</AppText>
+      <TouchableOpacity>
+        {/* <Button style={styles.icon} title="">
+          <Icon name={"delete"} size={30} color={colors.black} />
+        </Button> */}
+        <Icon
+          name={"delete"}
+          size={30}
+          color={colors.primary}
+          onPress={() => {
+            console.log("pressed");
+          }}
+        />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -24,18 +39,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  // image: {
-  //   width: 70,
-  //   height: 70,
-  //   borderRadius: 35,
-  //   marginRight: 10,
-  // },
   title: {
     fontWeight: "500",
   },
   subTitle: {
     padding: 5,
     color: colors.color,
+  },
+  icon: {
+    backgroundColor: colors.primary,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
+    height: 45,
+    marginVertical: 10,
+    width: "15%",
   },
 });
 
