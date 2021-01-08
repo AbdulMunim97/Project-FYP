@@ -7,7 +7,10 @@ import colors from "../config/colors";
 function Header({ title, navigation }) {
   return (
     <View style={styles.background}>
-      <Pressable style={styles.icon} onPress={() => navigation.openDrawer()}>
+      <Pressable
+        style={styles.icon}
+        // onPress={() => navigation.openDrawer()}
+      >
         <Icon name={"menu"} size={30} color={colors.black} />
       </Pressable>
       <Text style={styles.title}>{title}</Text>

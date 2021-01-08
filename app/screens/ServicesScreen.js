@@ -27,19 +27,19 @@ function ServicesScreen({ navigation }) {
   }, []);
 
   useEffect(() => {
-    fetch("http://192.168.10.14:5000/allskinservices")
+    fetch("https://sar-server.herokuapp.com/allskinservices")
       .then((res) => res.json())
       .then((result) => {
         setSkin(result);
       })
       .catch((error) => console.log(error));
-    fetch("http://192.168.10.14:5000/allhairservices")
+    fetch("https://sar-server.herokuapp.com/allhairservices")
       .then((res) => res.json())
       .then((result) => {
         setHair(result);
       })
       .catch((error) => console.log(error));
-    fetch("http://192.168.10.14:5000/allbeardservices")
+    fetch("https://sar-server.herokuapp.com/allbeardservices")
       .then((res) => res.json())
       .then((result) => {
         setBeard(result);

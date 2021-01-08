@@ -26,7 +26,7 @@ function DealsScreen({ navigation }) {
   }, []);
 
   useEffect(() => {
-    fetch("http://192.168.10.14:5000/alldeals")
+    fetch("https://sar-server.herokuapp.com/alldeals")
       .then((res) => res.json())
       .then((result) => {
         setData(result);

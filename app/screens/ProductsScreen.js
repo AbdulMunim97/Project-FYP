@@ -27,19 +27,19 @@ function ProductsScreen({ navigation }) {
   }, []);
 
   useEffect(() => {
-    fetch("http://192.168.10.14:5000/allskincare")
+    fetch("https://sar-server.herokuapp.com/allskincare")
       .then((res) => res.json())
       .then((result) => {
         setSkin(result);
       })
       .catch((error) => console.log(error));
-    fetch("http://192.168.10.14:5000/allhaircare")
+    fetch("https://sar-server.herokuapp.com/allhaircare")
       .then((res) => res.json())
       .then((result) => {
         setHair(result);
       })
       .catch((error) => console.log(error));
-    fetch("http://192.168.10.14:5000/allbeardcare")
+    fetch("https://sar-server.herokuapp.com/allbeardcare")
       .then((res) => res.json())
       .then((result) => {
         setBeard(result);

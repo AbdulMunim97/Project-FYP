@@ -9,9 +9,9 @@ import DrawerStack from "./app/navigation/DrawerStack";
 export default function App() {
   return (
     <NavigationContainer>
-      <DrawerStack />
+      {/* <DrawerStack /> */}
       {/* <AppNavigator /> */}
-      {/* <AuthNavigator /> */}
+      <AuthNavigator />
     </NavigationContainer>
   );
 }
