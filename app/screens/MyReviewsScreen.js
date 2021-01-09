@@ -28,22 +28,26 @@ function MyReviewsScreen(props) {
 
   const [reviews, setReviews] = useState([]);
 
-  useEffect(() => {
-    // AsyncStorage.getItem("jwt").then((res) => console.log(res));
-    // AsyncStorage.clear();
-    fetch("https://sar-server.herokuapp.com/myreviews", {
+  async function getReviews(token) {
+    await fetch("https://sar-server.herokuapp.com/myreviews", {
       headers: {
-        Authorization: "Bearer " + AsyncStorage.getItem("jwt"),
+        Authorization: "Bearer " + token,
       },
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         setReviews(result);
       })
+
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  useEffect(() => {
+    AsyncStorage.getItem("jwt").then((res) => {
+      getReviews(res);
+    });
   }, []);
 
   return (
@@ -63,7 +67,16 @@ function MyReviewsScreen(props) {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <ServiceCard
+        {reviews.map((item) => {
+          return (
+            <ServiceCard
+              key={item._id}
+              title={item.title}
+              description={item.body}
+            />
+          );
+        })}
+        {/* <ServiceCard
           title="Service: Haircut"
           description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
           price="Review:"
@@ -82,7 +95,7 @@ function MyReviewsScreen(props) {
           title="Service: Clean shave"
           description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
           price="Review:"
-        />
+        /> */}
       </ScrollView>
     </ImageBackground>
   );
