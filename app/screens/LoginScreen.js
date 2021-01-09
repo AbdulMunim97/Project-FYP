@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   ImageBackground,
   Image,
   View,
   TextInput,
+  Text,
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -17,6 +19,8 @@ import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 import colors from "../config/colors";
 
+// import UserContext from "../reducers/usercontext";
+
 const { width: WIDTH } = Dimensions.get("window");
 
 const validationSchema = Yup.object().shape({
@@ -25,6 +29,48 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoginScreen({ navigation }) {
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [passwordErr, setPasswordErr] = useState("");
+  const [emailErr, setEmailErr] = useState("");
+  const [invalidErr, setInvalidErr] = useState("");
+
+  const PostData = () => {
+    if (!password) {
+      setPasswordErr("Password is Required");
+    }
+    if (
+      !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        email
+      )
+    ) {
+      setEmailErr("Invalid Email");
+      return;
+    } else {
+      fetch("https://sar-server.herokuapp.com/signin", {
+        method: "post",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          password,
+          email,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.error) {
+            setInvalidErr(data.error);
+          } else {
+            AsyncStorage.setItem("jwt", data.token);
+            AsyncStorage.setItem("user", JSON.stringify(data.user));
+            // dispatch({ type: "USER", payload: data.user });
+            navigation.navigate("Register");
+          }
+        });
+    }
+  };
+
   return (
     <ImageBackground
       //blurRadius={5}
@@ -50,6 +96,12 @@ function LoginScreen({ navigation }) {
                 placeholder={"Email"}
                 placeholderTextColor={"rgba(255,255,255,0.7)"}
                 underlineColorAndroid="transparent"
+                value={email}
+                onChange={(event) => {
+                  setEmail(event.nativeEvent.text);
+                  setEmailErr("");
+                  setInvalidErr("");
+                }}
               />
               <Icon
                 style={styles.inputIcons}
@@ -57,6 +109,9 @@ function LoginScreen({ navigation }) {
                 size={28}
                 color={"rgba(255,255,255,0.7) "}
               />
+            </View>
+            <View style={styles.inputContainer}>
+              <Text style={{ color: "red" }}>{emailErr}</Text>
             </View>
             <ErrorMessage error={errors.email} visible={touched.email} />
             <View style={styles.inputContainer}>
@@ -70,6 +125,11 @@ function LoginScreen({ navigation }) {
                 secureTextEntry={true}
                 placeholderTextColor={"rgba(255,255,255,0.7)"}
                 underlineColorAndroid="transparent"
+                value={password}
+                onChange={(event) => {
+                  setPassword(event.nativeEvent.text);
+                  setPasswordErr("");
+                }}
               />
               <Icon
                 style={styles.inputIcons}
@@ -81,6 +141,9 @@ function LoginScreen({ navigation }) {
                   <Icon name={"ios-eye"} size={26} color={"rgba(255,255,255,0.7) "} />
                 </TouchableOpacity>  */}
             </View>
+            <View style={styles.inputContainer}>
+              <Text style={{ color: "red" }}>{passwordErr}</Text>
+            </View>
             <ErrorMessage error={errors.password} visible={touched.password} />
             <View style={styles.loginBtn}>
               <AppButton
@@ -88,9 +151,13 @@ function LoginScreen({ navigation }) {
                 color="primary"
                 //change={handleSubmit}
                 change={() => {
-                  navigation.navigate("Home");
+                  PostData();
+                  // navigation.navigate("Home");
                 }}
               />
+            </View>
+            <View>
+              <Text style={{ color: "red" }}>{invalidErr}</Text>
             </View>
             {/* <AppText style={{ color: "#000"}}>Don't have an Account?</AppText> */}
             <View style={styles.signupBtn}>
@@ -139,7 +206,7 @@ const styles = StyleSheet.create({
     left: 37,
   },
   inputContainer: {
-    marginTop: 15,
+    // marginTop: 15,
   },
   // btnEye: {
   //   position: "absolute",

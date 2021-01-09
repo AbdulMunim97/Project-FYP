@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ImageBackground,
   ScrollView,
   StyleSheet,
   RefreshControl,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import ServiceCard from "../components/ServiceCard";
 import Header from "../components/Header";
+import { useEffect } from "react";
 
 const wait = (timeout) => {
   return new Promise((resolve) => {
@@ -22,6 +24,26 @@ function MyReviewsScreen(props) {
     setRefreshing(true);
 
     wait(2000).then(() => setRefreshing(false));
+  }, []);
+
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    // AsyncStorage.getItem("jwt").then((res) => console.log(res));
+    // AsyncStorage.clear();
+    fetch("https://sar-server.herokuapp.com/myreviews", {
+      headers: {
+        Authorization: "Bearer " + AsyncStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setReviews(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (
