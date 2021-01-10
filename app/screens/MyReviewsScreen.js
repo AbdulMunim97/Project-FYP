@@ -4,9 +4,14 @@ import {
   ScrollView,
   StyleSheet,
   RefreshControl,
+  Text,
+  View,
+  TouchableOpacity,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
+import colors from "../config/colors";
 import ServiceCard from "../components/ServiceCard";
 import Header from "../components/Header";
 import { useEffect } from "react";
@@ -43,6 +48,23 @@ function MyReviewsScreen(props) {
         console.log(error);
       });
   }
+  const deleteReview = (reviewid) => {
+    AsyncStorage.getItem("jwt").then((res) => {
+      fetch(`https://sar-server.herokuapp.com/deletereview/${reviewid}`, {
+        method: "delete",
+        headers: {
+          Authorization: "Bearer " + res,
+        },
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          const newData = reviews.filter((item) => {
+            return item._id !== result._id;
+          });
+          setReviews(newData);
+        });
+    });
+  };
 
   useEffect(() => {
     AsyncStorage.getItem("jwt").then((res) => {
@@ -69,13 +91,27 @@ function MyReviewsScreen(props) {
       >
         {reviews.map((item) => {
           return (
-            <ServiceCard
-              key={item._id}
-              title={item.title}
-              description={item.body}
-            />
+            <View style={styles.card} key={item._id}>
+              <View style={styles.detailsContainer}>
+                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.price}>{item.body}</Text>
+                <Text style={styles.description}>description</Text>
+                <TouchableOpacity>
+                  <Icon
+                    style={{ marginTop: "5%" }}
+                    name={"delete"}
+                    size={30}
+                    color={colors.primary}
+                    onPress={() => {
+                      deleteReview(item._id);
+                    }}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
           );
         })}
+
         {/* <ServiceCard
           title="Service: Haircut"
           description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
@@ -105,6 +141,29 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  card: {
+    borderRadius: 10,
+    backgroundColor: "rgba(0,0,0,0.65)",
+    marginBottom: 20,
+    overflow: "hidden",
+    elevation: 4,
+  },
+  detailsContainer: {
+    padding: 20,
+    alignItems: "center",
+  },
+  title: {
+    marginBottom: 7,
+    color: colors.white,
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  description: {
+    color: colors.white,
+  },
+  price: {
+    color: colors.white,
   },
 });
 

@@ -6,13 +6,13 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import AppText from "./AppText";
 import colors from "../config/colors";
 
-function ListItem({ title, subTitle, name }) {
+function ListItem({ title, subTitle, name, iconFunction }) {
   return (
     <View style={styles.container}>
       <AppText style={styles.title}>{title}</AppText>
       <AppText style={styles.subTitle}>{subTitle}</AppText>
       <AppText style={styles.subTitle}>{name}</AppText>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={iconFunction}>
         {/* <Button style={styles.icon} title="">
           <Icon name={"delete"} size={30} color={colors.black} />
         </Button> */}

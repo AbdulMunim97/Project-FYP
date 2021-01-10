@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, NativeModules } from "react-native";
 import { Title, Drawer } from "react-native-paper";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 
@@ -105,7 +105,8 @@ export function DrawerContent(props) {
             AsyncStorage.getItem("jwt").then((res) => {
               console.log(res);
             });
-            props.navigation.navigate("Help");
+            // props.navigation.navigate("Help");
+            NativeModules.DevSettings.reload();
           }}
         />
       </Drawer.Section>

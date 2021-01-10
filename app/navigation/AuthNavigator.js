@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import WelcomeScreen from "../screens/WelcomeScreen";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
-import HomeScreen from "../screens/HomeScreen";
+
 // import BookAppointmentScreen from "../screens/BookAppointmentScreen";
 // import ProductsScreen from "../screens/ProductsScreen";
 // import ServicesScreen from "../screens/ServicesScreen";
@@ -34,6 +34,8 @@ const AuthNavigator = () => (
     />
     <Stack.Screen name="Login" component={LoginScreen} />
     <Stack.Screen name="Register" component={RegisterScreen} />
+
+    {/* <Stack.Screen name="Home" component={HomeScreen} /> */}
     {/* <Stack.Screen name="Home" component={HomeScreen} /> */}
     {/* <Stack.Screen name="Book Appointment" component={BookAppointmentScreen} />
     <Stack.Screen name="Products" component={ProductsScreen} />

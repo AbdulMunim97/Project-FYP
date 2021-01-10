@@ -48,6 +48,7 @@ function AddReviewScreen({ navigation }) {
               alert(data.error);
             } else {
               console.log("review added successfully");
+              navigation.navigate("My Reviews");
             }
           })
           .catch((error) => {

@@ -8,6 +8,7 @@ import {
   Text,
   Dimensions,
   TouchableOpacity,
+  NativeModules,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Formik } from "formik";
@@ -18,6 +19,7 @@ import ErrorMessage from "../components/ErrorMessage";
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 import colors from "../config/colors";
+import HomeScreen from "./HomeScreen";
 
 // import UserContext from "../reducers/usercontext";
 
@@ -64,7 +66,8 @@ function LoginScreen({ navigation }) {
           } else {
             AsyncStorage.setItem("jwt", data.token);
             AsyncStorage.setItem("user", JSON.stringify(data.user));
-            navigation.navigate("Register");
+            NativeModules.DevSettings.reload();
+
             // navigation.navigate("Home");
           }
         });
