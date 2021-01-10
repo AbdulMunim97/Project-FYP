@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, ImageBackground, View } from "react-native";
+import { WebView } from "react-native-webview";
 
 import AppText from "../components/AppText";
 import Header from "../components/Header";

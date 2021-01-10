@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useIsFocused } from "@react-navigation/native";
 
 import colors from "../config/colors";
 import ServiceCard from "../components/ServiceCard";
@@ -32,6 +33,7 @@ function MyReviewsScreen(props) {
   }, []);
 
   const [reviews, setReviews] = useState([]);
+  const isFocused = useIsFocused();
 
   async function getReviews(token) {
     await fetch("https://sar-server.herokuapp.com/myreviews", {
@@ -70,7 +72,7 @@ function MyReviewsScreen(props) {
     AsyncStorage.getItem("jwt").then((res) => {
       getReviews(res);
     });
-  }, []);
+  }, [isFocused]);
 
   return (
     <ImageBackground
@@ -95,7 +97,6 @@ function MyReviewsScreen(props) {
               <View style={styles.detailsContainer}>
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.price}>{item.body}</Text>
-                <Text style={styles.description}>description</Text>
                 <TouchableOpacity>
                   <Icon
                     style={{ marginTop: "5%" }}

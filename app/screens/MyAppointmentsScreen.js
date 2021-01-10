@@ -9,6 +9,7 @@ import {
 } from "react-native";
 
 import colors from "../config/colors";
+import { useIsFocused } from "@react-navigation/native";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -18,6 +19,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function MyAppointmentsScreen(props) {
   const [appointments, setAppointments] = useState([]);
+  const isFocused = useIsFocused();
   async function getAppointments(token) {
     await fetch("https://sar-server.herokuapp.com/myappointments", {
       headers: {
@@ -41,7 +43,7 @@ function MyAppointmentsScreen(props) {
 
       getAppointments(res);
     });
-  }, []);
+  }, [isFocused]);
 
   const deleteAppointment = (appointmentid) => {
     AsyncStorage.getItem("jwt").then((res) => {
@@ -74,7 +76,7 @@ function MyAppointmentsScreen(props) {
       </View>
       {appointments.map((item) => {
         return (
-          <View style={styles.container}>
+          <View style={styles.container} key={item._id}>
             <Text style={(styles.title, styles.text)}>{item.time}</Text>
             <Text style={styles.subTitle}>
               {new Date(item.date).toLocaleDateString("en-gb")}
