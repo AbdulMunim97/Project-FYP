@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   ImageBackground,
@@ -10,6 +10,7 @@ import {
   Pressable,
 } from "react-native";
 import Header from "../components/Header";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Icon from "react-native-vector-icons/Ionicons";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -33,6 +34,83 @@ function EditProfileScreen({ navigation }) {
     console.warn("A date has been picked: ", date);
     hideDatePicker();
   };
+
+  const [id, setId] = useState("");
+  const [name, setName] = useState("");
+  const [contact, setContact] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [nameErr, setNameErr] = useState("");
+  const [contactErr, setContactErr] = useState("");
+  const [passwordErr, setPasswordErr] = useState("");
+
+  useEffect(() => {
+    AsyncStorage.getItem("jwt").then((res) => {
+      fetch("https://sar-server.herokuapp.com/userdata", {
+        method: "get",
+        headers: {
+          Authorization: "Bearer " + res,
+        },
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          setId(result[0]._id);
+          setName(result[0].name);
+          setEmail(result[0].email);
+          setContact("0" + result[0].contact);
+          console.log(result);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  }, []);
+
+  const updateProfile = () => {
+    if (!/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/.test(name)) {
+      setNameErr("Invalid Name");
+    }
+
+    if (!/^-?\d+\.?\d*$/.test(contact)) {
+      setContactErr("Invalid Number");
+    }
+
+    if (!password) {
+      setPasswordErr("Please Enter your Password");
+      return;
+    } else {
+      AsyncStorage.getItem("jwt").then((res) => {
+        fetch("https://sar-server.herokuapp.com/updateprofile", {
+          method: "put",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + res,
+          },
+          body: JSON.stringify({
+            id,
+            name,
+            email,
+            contact,
+            password,
+          }),
+        })
+          .then((res) => res.json())
+          .then((result) => {
+            // localStorage.clear();
+            // dispatch({ type: "CLEAR" });
+            // history.push("/signin");
+
+            console.log(result);
+            navigation.navigate("Home");
+          })
+
+          .catch((err) => {
+            console.log(err);
+          });
+      });
+    }
+  };
+
   return (
     <ImageBackground
       //blurRadius={5}
@@ -49,6 +127,11 @@ function EditProfileScreen({ navigation }) {
             placeholder={"Username"}
             placeholderTextColor={"rgba(255,255,255,0.7)"}
             underlineColorAndroid="transparent"
+            value={name}
+            onChange={(event) => {
+              setName(event.nativeEvent.text);
+              setNameErr("");
+            }}
           ></TextInput>
           <Icon
             style={styles.inputIcons}
@@ -57,6 +140,9 @@ function EditProfileScreen({ navigation }) {
             color={"rgba(255,255,255,0.7) "}
           />
         </View>
+        <View style={styles.inputContainer}>
+          <Text style={{ color: "red" }}>{nameErr}</Text>
+        </View>
 
         <View style={styles.inputContainer}>
           <TextInput
@@ -64,6 +150,7 @@ function EditProfileScreen({ navigation }) {
             placeholder={"Email"}
             placeholderTextColor={"rgba(255,255,255,0.7)"}
             underlineColorAndroid="transparent"
+            value={email}
           ></TextInput>
           <Icon
             style={styles.inputIcons}
@@ -73,12 +160,20 @@ function EditProfileScreen({ navigation }) {
           />
         </View>
         <View style={styles.inputContainer}>
+          <Text style={{ color: "red" }}>{}</Text>
+        </View>
+        <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
             placeholder={"Password"}
             secureTextEntry={true}
             placeholderTextColor={"rgba(255,255,255,0.7)"}
             underlineColorAndroid="transparent"
+            value={password}
+            onChange={(event) => {
+              setPassword(event.nativeEvent.text);
+              setPasswordErr("");
+            }}
           ></TextInput>
           <Icon
             style={styles.inputIcons}
@@ -87,6 +182,9 @@ function EditProfileScreen({ navigation }) {
             color={"rgba(255,255,255,0.7) "}
           />
         </View>
+        <View style={styles.inputContainer}>
+          <Text style={{ color: "red" }}>{passwordErr}</Text>
+        </View>
 
         <View style={styles.inputContainer}>
           <TextInput
@@ -94,6 +192,11 @@ function EditProfileScreen({ navigation }) {
             placeholder={"Phone Number"}
             placeholderTextColor={"rgba(255,255,255,0.7)"}
             underlineColorAndroid="transparent"
+            value={contact}
+            onChange={(event) => {
+              setContact(event.nativeEvent.text);
+              setContactErr("");
+            }}
           ></TextInput>
           <Icon
             style={styles.inputIcons}
@@ -103,6 +206,9 @@ function EditProfileScreen({ navigation }) {
           />
         </View>
         <View style={styles.inputContainer}>
+          <Text style={{ color: "red" }}>{contactErr}</Text>
+        </View>
+        {/* <View style={styles.inputContainer}>
           <Pressable
             style={styles.input}
             placeholder={"Date of Birth"}
@@ -130,7 +236,7 @@ function EditProfileScreen({ navigation }) {
             onConfirm={handleDateConfirm}
             onCancel={hideDatePicker}
           />
-        </View>
+        </View> */}
         {/* <View style={styles.signupBtn}>
           <AppButton
             // change={() => {
@@ -144,9 +250,10 @@ function EditProfileScreen({ navigation }) {
           <AppButton
             title="Edit Profile"
             color="primary"
-            // change={() => {
-            //   navigation.navigate("Login");
-            // }}
+            change={() => {
+              updateProfile();
+              // navigation.navigate("Login");
+            }}
           />
         </View>
       </ScrollView>
@@ -175,7 +282,7 @@ const styles = StyleSheet.create({
     left: 37,
   },
   inputContainer: {
-    marginTop: 15,
+    // marginTop: 15,
     top: 30,
   },
   btnEye: {
@@ -185,7 +292,7 @@ const styles = StyleSheet.create({
   },
   loginBtn: {
     width: WIDTH - 15,
-    paddingTop: 100,
+    paddingTop: 60,
   },
   signupBtn: {
     marginTop: 50,

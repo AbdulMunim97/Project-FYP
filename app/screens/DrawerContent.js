@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Title, Drawer } from "react-native-paper";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
@@ -10,7 +10,15 @@ export function DrawerContent(props) {
   //   const paperTheme = useTheme();
 
   //   const { signOut, toggleTheme } = React.useContext(AuthContext);
+  const [username, setUsername] = useState("");
 
+  AsyncStorage.getItem("user").then((res) => {
+    const name = JSON.parse(res);
+
+    setUsername(name.name);
+  });
+
+  // console.log("hello ", JSON.parse(username));
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>
@@ -18,7 +26,9 @@ export function DrawerContent(props) {
           <View style={styles.userInfoSection}>
             <View style={{ flexDirection: "row", marginTop: 15 }}>
               <View style={{ marginLeft: 15, flexDirection: "column" }}>
-                <Title style={styles.title}>John Doe</Title>
+                <Title style={styles.title}>
+                  {username ? username : "Loading"}
+                </Title>
               </View>
             </View>
           </View>
