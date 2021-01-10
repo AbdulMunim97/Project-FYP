@@ -64,8 +64,8 @@ function LoginScreen({ navigation }) {
           } else {
             AsyncStorage.setItem("jwt", data.token);
             AsyncStorage.setItem("user", JSON.stringify(data.user));
-            // dispatch({ type: "USER", payload: data.user });
             navigation.navigate("Register");
+            // navigation.navigate("Home");
           }
         });
     }

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
   TextInput,
   Dimensions,
+  Text,
   ImageBackground,
 } from "react-native";
 
@@ -11,10 +12,51 @@ import colors from "../config/colors";
 import AppButton from "../components/AppButton";
 import Header from "../components/Header";
 import AppNavigator from "../navigation/AppNavigator";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width: WIDTH } = Dimensions.get("window");
 
 function AddReviewScreen({ navigation }) {
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+  const [titleErr, setTitleErr] = useState("");
+  const [bodyErr, setBodyErr] = useState("");
+
+  const postReview = () => {
+    if (!title) {
+      setTitleErr("Add Title");
+    }
+    if (!body) {
+      setBodyErr("Add Body");
+      return;
+    } else {
+      AsyncStorage.getItem("jwt").then((res) => {
+        fetch("https://sar-server.herokuapp.com/addreview", {
+          method: "post",
+          headers: {
+            "content-type": "application/json",
+            Authorization: "Bearer " + res,
+          },
+          body: JSON.stringify({
+            title,
+            body,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.error) {
+              alert(data.error);
+            } else {
+              console.log("review added successfully");
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      });
+    }
+  };
+
   return (
     <ImageBackground
       //blurRadius={5}
@@ -24,7 +66,7 @@ function AddReviewScreen({ navigation }) {
       <View width={"100%"}>
         <Header title={"Review"} />
       </View>
-      <View style={styles.inputContainer}>
+      <View style={{ marginTop: "17%" }}>
         <TextInput
           style={styles.inputTitle}
           autoCapitalize="sentences"
@@ -32,7 +74,15 @@ function AddReviewScreen({ navigation }) {
           placeholder={"Title"}
           placeholderTextColor={"rgba(255,255,255,0.7)"}
           underlineColorAndroid="transparent"
+          value={title}
+          onChange={(e) => {
+            setTitle(e.nativeEvent.text);
+            setTitleErr("");
+          }}
         />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={{ color: "red" }}>{titleErr}</Text>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
@@ -43,13 +93,23 @@ function AddReviewScreen({ navigation }) {
           placeholder={"Write Review"}
           placeholderTextColor={"rgba(255,255,255,0.7)"}
           underlineColorAndroid="transparent"
+          value={body}
+          onChange={(e) => {
+            setBody(e.nativeEvent.text);
+            setBodyErr("");
+          }}
         />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={{ color: "red" }}>{bodyErr}</Text>
       </View>
       <View style={styles.AddBtn}>
         <AppButton
           title="ADD"
           color="primary"
-          //change
+          change={() => {
+            postReview();
+          }}
         />
       </View>
       <View>
@@ -86,7 +146,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   inputContainer: {
-    marginTop: 25,
+    // marginTop: 25,
   },
   AddBtn: {
     width: "98%",

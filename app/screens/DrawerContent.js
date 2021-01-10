@@ -4,6 +4,7 @@ import { Title, Drawer } from "react-native-paper";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function DrawerContent(props) {
   //   const paperTheme = useTheme();
@@ -89,9 +90,13 @@ export function DrawerContent(props) {
             <Icon name="exit-to-app" color={color} size={size} />
           )}
           label="Sign Out"
-          // onPress={() => {
-          //   signOut();
-          // }}
+          onPress={() => {
+            AsyncStorage.clear();
+            AsyncStorage.getItem("jwt").then((res) => {
+              console.log(res);
+            });
+            props.navigation.navigate("Help");
+          }}
         />
       </Drawer.Section>
     </View>

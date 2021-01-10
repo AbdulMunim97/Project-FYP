@@ -16,14 +16,7 @@ function ListItem({ title, subTitle, name }) {
         {/* <Button style={styles.icon} title="">
           <Icon name={"delete"} size={30} color={colors.black} />
         </Button> */}
-        <Icon
-          name={"delete"}
-          size={30}
-          color={colors.primary}
-          onPress={() => {
-            console.log("pressed");
-          }}
-        />
+        <Icon name={"delete"} size={30} color={colors.primary} />
       </TouchableOpacity>
     </View>
   );

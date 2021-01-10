@@ -1,48 +1,59 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, ImageBackground } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import Header from "../components/Header";
 import ListItem from "../components/ListItem";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function MyAppointmentsScreen(props) {
-  const [appointments, setAppointments] = useState("");
-  // async function getAppointments(token) {
-  //   await fetch("https://sar-server.herokuapp.com/myappointments", {
-  //     headers: {
-  //       Authorization: "Bearer " + token,
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((result) => {
-  //       console.log(result);
-  //       setAppointments(result);
-  //     })
+  const [appointments, setAppointments] = useState([]);
+  async function getAppointments(token) {
+    await fetch("https://sar-server.herokuapp.com/myappointments", {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setAppointments(result);
+      })
 
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   useEffect(() => {
     AsyncStorage.getItem("jwt").then((res) => {
-      fetch("https://sar-server.herokuapp.com/myappointments", {
-        headers: {
-          Authorization: "Bearer " + res,
-        },
-      })
-        .then((res) => res.json())
-        .then((result) => {
-          console.log(result);
-          setAppointments(result);
-        })
+      console.log(res);
 
-        .catch((error) => {
-          console.log(error);
-        });
-      // getAppointments(res);
+      getAppointments(res);
     });
   }, []);
+
+  const deleteAppointment = (appointmentid) => {
+    AsyncStorage.getItem("jwt").then((res) => {
+      fetch(
+        `https://sar-server.herokuapp.com/deleteappointment/${appointmentid}`,
+        {
+          method: "delete",
+          headers: {
+            Authorization: "Bearer " + res,
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((result) => {
+          const newData = appointments.filter((item) => {
+            return item._id !== result._id;
+          });
+          setAppointments(newData);
+        });
+    });
+  };
+
   return (
     <ImageBackground
       style={styles.background}
@@ -58,9 +69,15 @@ function MyAppointmentsScreen(props) {
             title={item.time}
             subTitle={new Date(item.date).toLocaleDateString("en-gb")}
             name={item.barber}
+            // iconFunction={deleteAppointment(item._id)}
           />
         );
       })}
+      <ListItem
+        title={"10:00 AM "}
+        subTitle={"27th November 2020"}
+        name={"Nouman"}
+      />
       {/* <ListItem
         title={"10:00 AM hhshshshshs "}
         subTitle={"27th November  hahahahaha2020"}
