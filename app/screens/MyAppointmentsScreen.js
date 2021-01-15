@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
+  ScrollView,
   View,
   ImageBackground,
-  Button,
   TouchableOpacity,
   Text,
+  RefreshControl,
 } from "react-native";
 
 import colors from "../config/colors";
@@ -14,10 +15,23 @@ import { useIsFocused } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import Header from "../components/Header";
-import ListItem from "../components/ListItem";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+const wait = (timeout) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, timeout);
+  });
+};
+
 function MyAppointmentsScreen(props) {
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
   const [appointments, setAppointments] = useState([]);
   const isFocused = useIsFocused();
   async function getAppointments(token) {
@@ -74,28 +88,39 @@ function MyAppointmentsScreen(props) {
       <View>
         <Header title={"My Appointments"} />
       </View>
-      {appointments.map((item) => {
-        return (
-          <View style={styles.container} key={item._id}>
-            <Text style={(styles.title, styles.text)}>{item.time}</Text>
-            <Text style={styles.subTitle}>
-              {new Date(item.date).toLocaleDateString("en-gb")}
-            </Text>
-            <Text style={styles.subTitle}>{item.barber}</Text>
+      <ScrollView
+        style={{
+          padding: 20,
+          paddingTop: 20,
+          marginBottom: 5,
+        }}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        {appointments.map((item) => {
+          return (
+            <View style={styles.container} key={item._id}>
+              <Text style={(styles.title, styles.text)}>{item.time}</Text>
+              <Text style={styles.subTitle}>
+                {new Date(item.date).toLocaleDateString("en-gb")}
+              </Text>
+              <Text style={styles.subTitle}>{item.barber}</Text>
 
-            <TouchableOpacity>
-              <Icon
-                name={"delete"}
-                size={30}
-                color={colors.primary}
-                onPress={() => {
-                  deleteAppointment(item._id);
-                }}
-              />
-            </TouchableOpacity>
-          </View>
-        );
-      })}
+              <TouchableOpacity>
+                <Icon
+                  name={"delete"}
+                  size={30}
+                  color={colors.primary}
+                  onPress={() => {
+                    deleteAppointment(item._id);
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+          );
+        })}
+      </ScrollView>
 
       {/* <ListItem
             key={item._id}

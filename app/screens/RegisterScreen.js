@@ -190,13 +190,13 @@ function RegisterScreen({ navigation }) {
         <View style={styles.inputContainer}>
           <Pressable
             style={styles.input}
-            placeholder={"Date of Birth"}
+            placeholder={dateOfBirth}
             placeholderTextColor={"rgba(255,255,255,0.7)"}
             underlineColorAndroid="transparent"
             value={dateOfBirth}
             onPress={showDatePicker}
           >
-            <Text style={styles.text}>Date Of Birth</Text>
+            {/* <Text style={styles.text}>{dateOfBirth}</Text> */}
           </Pressable>
           <Icon
             style={styles.inputIcons}

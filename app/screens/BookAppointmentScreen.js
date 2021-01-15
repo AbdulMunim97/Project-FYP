@@ -1,13 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import {
-  View,
-  ImageBackground,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, ImageBackground, StyleSheet, Text } from "react-native";
 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import RNPickerSelect from "react-native-picker-select";
 
 import AppButton from "../components/AppButton";
 import Header from "../components/Header";
@@ -51,14 +47,73 @@ function BookAppointmentScreen({ navigation }) {
       <View width={"100%"}>
         <Header title={"Book Appointment"} />
       </View>
+      <View style={{ alignItems: "center", padding: 15 }}>
+        <Text
+          style={{
+            fontWeight: "bold",
+            fontSize: 22,
+          }}
+        >
+          Select a Date
+        </Text>
+      </View>
+
       <View style={styles.button}>
         <AppButton color="primary" title="Pick Date" change={showDatePicker} />
-        <AppButton
+
+        {/* <AppButton
           color="secondary"
           title="Pick Time"
           change={showTimePicker}
+        /> */}
+      </View>
+      <View style={{ alignItems: "center", padding: 15 }}>
+        <Text
+          style={{
+            fontWeight: "bold",
+            fontSize: 22,
+          }}
+        >
+          Select a Barber
+        </Text>
+      </View>
+      <View style={styles.pickerContainer}>
+        <RNPickerSelect
+          //placeholder={"Select a Barber"}
+          onValueChange={(value) => console.log(value)}
+          items={[
+            { label: "Football", value: "football" },
+            { label: "Baseball", value: "baseball" },
+            { label: "Hockey", value: "hockey" },
+          ]}
         />
       </View>
+      <View style={{ alignItems: "center", padding: 15 }}>
+        <Text
+          style={{
+            fontWeight: "bold",
+            fontSize: 22,
+          }}
+        >
+          Select a Timeslot
+        </Text>
+      </View>
+      <View style={styles.pickerContainer}>
+        <RNPickerSelect
+          //placeholder={"Select a Barber"}
+
+          onValueChange={(value) => console.log(value)}
+          items={[
+            { label: "Football", value: "football" },
+            { label: "Baseball", value: "baseball" },
+            { label: "Hockey", value: "hockey" },
+          ]}
+        />
+      </View>
+      <View style={{ alignItems: "center", width: "60%", top: 20 }}>
+        <AppButton color="primary" title="Book Now" />
+      </View>
+
       <View>
         <DateTimePickerModal
           isVisible={isDatePickerVisible}
@@ -90,6 +145,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button: {
+    width: "80%",
+  },
+  picker: {
+    // backgroundColor: "rgba(0,0,0,0.65)",
+    // color: "rgba(255,255,255,0.7)",
+  },
+  pickerContainer: {
+    backgroundColor: "rgba(0,0,0,0.65)",
+    borderRadius: 10,
+    // top: 30,
+    //bottom: 30,
     width: "80%",
   },
 });

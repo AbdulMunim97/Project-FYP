@@ -7,7 +7,6 @@ import {
   TextInput,
   Text,
   Dimensions,
-  TouchableOpacity,
   NativeModules,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -16,10 +15,7 @@ import * as Yup from "yup";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import ErrorMessage from "../components/ErrorMessage";
-import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
-import colors from "../config/colors";
-import HomeScreen from "./HomeScreen";
 
 // import UserContext from "../reducers/usercontext";
 
