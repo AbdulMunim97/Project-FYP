@@ -196,7 +196,11 @@ function RegisterScreen({ navigation }) {
             value={dateOfBirth}
             onPress={showDatePicker}
           >
-            {/* <Text style={styles.text}>{dateOfBirth}</Text> */}
+            <Text style={styles.text}>
+              {dateOfBirth
+                ? dateOfBirth.toString().slice(0, 15)
+                : "Enter Date Of Birth"}
+            </Text>
           </Pressable>
           <Icon
             style={styles.inputIcons}

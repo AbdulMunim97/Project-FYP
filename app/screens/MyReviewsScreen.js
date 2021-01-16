@@ -112,27 +112,6 @@ function MyReviewsScreen(props) {
             </View>
           );
         })}
-
-        {/* <ServiceCard
-          title="Service: Haircut"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-          price="Review:"
-        />
-        <ServiceCard
-          title="Beard Trimming"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-          price="Review:"
-        />
-        <ServiceCard
-          title="Service: Facial"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-          price="Review:"
-        />
-        <ServiceCard
-          title="Service: Clean shave"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-          price="Review:"
-        /> */}
       </ScrollView>
     </ImageBackground>
   );

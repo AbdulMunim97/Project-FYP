@@ -53,8 +53,6 @@ function MyAppointmentsScreen(props) {
 
   useEffect(() => {
     AsyncStorage.getItem("jwt").then((res) => {
-      console.log(res);
-
       getAppointments(res);
     });
   }, [isFocused]);
@@ -80,6 +78,64 @@ function MyAppointmentsScreen(props) {
     });
   };
 
+  const renderList = () => {
+    if (appointments.length === 0) {
+      return [
+        <Text
+          style={{
+            fontSize: 30,
+            paddingTop: "50%",
+            fontWeight: "bold",
+            textAlign: "center",
+          }}
+        >
+          No Appointments
+        </Text>,
+      ];
+    } else {
+      appointments.sort(function (a, b) {
+        // Turn your strings into dates, and then subtract them
+        // to get a value that is either negative, positive, or zero.
+        return new Date(b.date) - new Date(a.date);
+      });
+      return [
+        <ScrollView
+          style={{
+            padding: 20,
+            paddingTop: 20,
+            marginBottom: 5,
+          }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          {appointments.map((item) => {
+            return (
+              <View style={styles.container} key={item._id}>
+                <Text style={(styles.title, styles.text)}>{item.time}</Text>
+                <Text style={styles.subTitle}>
+                  {new Date(item.date).toLocaleDateString("en-gb")}
+                </Text>
+                <Text style={styles.subTitle}>{item.barber}</Text>
+
+                <TouchableOpacity>
+                  <Icon
+                    name={"delete"}
+                    size={30}
+                    color={colors.primary}
+                    onPress={() => {
+                      deleteAppointment(item._id);
+                    }}
+                  />
+                </TouchableOpacity>
+              </View>
+            );
+          })}
+        </ScrollView>,
+      ];
+    }
+  };
+
   return (
     <ImageBackground
       style={styles.background}
@@ -88,39 +144,7 @@ function MyAppointmentsScreen(props) {
       <View>
         <Header title={"My Appointments"} />
       </View>
-      <ScrollView
-        style={{
-          padding: 20,
-          paddingTop: 20,
-          marginBottom: 5,
-        }}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      >
-        {appointments.map((item) => {
-          return (
-            <View style={styles.container} key={item._id}>
-              <Text style={(styles.title, styles.text)}>{item.time}</Text>
-              <Text style={styles.subTitle}>
-                {new Date(item.date).toLocaleDateString("en-gb")}
-              </Text>
-              <Text style={styles.subTitle}>{item.barber}</Text>
-
-              <TouchableOpacity>
-                <Icon
-                  name={"delete"}
-                  size={30}
-                  color={colors.primary}
-                  onPress={() => {
-                    deleteAppointment(item._id);
-                  }}
-                />
-              </TouchableOpacity>
-            </View>
-          );
-        })}
-      </ScrollView>
+      <View>{renderList()}</View>
 
       {/* <ListItem
             key={item._id}

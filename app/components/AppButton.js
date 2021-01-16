@@ -9,7 +9,7 @@ function AppButton({ title, color, change }) {
       style={[styles.button, { backgroundColor: colors[color] }]}
       onPress={change}
     >
-      <Text style={styles.text}>{title}</Text>
+      <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
   );
 }
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     width: "100%",
   },
-  text: {
+  buttonText: {
     color: "#fff",
     fontSize: 18,
     fontFamily: "Roboto",
