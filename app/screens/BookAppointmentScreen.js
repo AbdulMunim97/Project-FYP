@@ -132,6 +132,12 @@ function BookAppointmentScreen({ navigation }) {
             if (data.error) {
               setBookedErr(data.error);
             } else {
+              setDate("");
+              setTime("");
+              setBarber("");
+              alert(
+                "Appointment Booked.. You can check your appointments in My Appointment Page"
+              );
               navigation.navigate("Home");
             }
           })

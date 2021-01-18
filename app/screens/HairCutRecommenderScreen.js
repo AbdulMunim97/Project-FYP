@@ -210,6 +210,7 @@ function HairCutRecommenderScreen(props) {
   const [image, setImage] = useState("");
   const [status, setStatus] = useState("");
   const [url, setUrl] = useState("");
+  const [selectImageInfo, setSelectImageInfo] = useState("");
   const [urlErr, setUrlErr] = useState("");
 
   useEffect(() => {
@@ -236,15 +237,29 @@ function HairCutRecommenderScreen(props) {
           url: url,
         }),
       })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.error) {
-            alert(data.error);
+        .then((res) => {
+          const contentType = res.headers.get("content-type");
+
+          if (contentType && contentType.indexOf("application/json") !== -1) {
+            return res.json().then((data) => {
+              if (data.error) {
+                alert(data.error);
+                return;
+              } else {
+                console.log(data);
+                setShape(data.result);
+                return;
+              }
+            });
           } else {
-            console.log(data);
-            setShape(data.result);
+            alert("image invalid");
+            setSelectImageInfo("");
+            setStatus("");
+            setImage("");
+            console.log("invalid image");
           }
         })
+
         .catch((error) => {
           console.log(error);
         });
@@ -275,6 +290,7 @@ function HairCutRecommenderScreen(props) {
   };
 
   const pickImage = async () => {
+    setSelectImageInfo("");
     setUrlErr("");
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -286,6 +302,7 @@ function HairCutRecommenderScreen(props) {
 
     if (!result.cancelled) {
       setImage(`data:image/jpg;base64,${result.base64}`);
+      setSelectImageInfo("Image has been picked");
     }
   };
 
@@ -311,6 +328,11 @@ function HairCutRecommenderScreen(props) {
           </View>
           <View>
             <Text style={{ color: "red", marginTop: 40 }}>{urlErr}</Text>
+          </View>
+          <View>
+            <Text style={{ color: "red", marginTop: 40 }}>
+              {selectImageInfo}
+            </Text>
           </View>
           <View
             style={{
@@ -391,6 +413,7 @@ function HairCutRecommenderScreen(props) {
                 onPress={() => {
                   setShape("");
                   setStatus("");
+                  setSelectImageInfo("");
                 }}
               >
                 Pick another Image
@@ -468,6 +491,7 @@ function HairCutRecommenderScreen(props) {
                 onPress={() => {
                   setShape("");
                   setStatus("");
+                  setSelectImageInfo("");
                 }}
               >
                 Pick another Image
@@ -545,6 +569,7 @@ function HairCutRecommenderScreen(props) {
                 onPress={() => {
                   setShape("");
                   setStatus("");
+                  setSelectImageInfo("");
                 }}
               >
                 Pick another Image
@@ -622,6 +647,7 @@ function HairCutRecommenderScreen(props) {
                 onPress={() => {
                   setShape("");
                   setStatus("");
+                  setSelectImageInfo("");
                 }}
               >
                 Pick another Image
@@ -699,6 +725,7 @@ function HairCutRecommenderScreen(props) {
                 onPress={() => {
                   setShape("");
                   setStatus("");
+                  setSelectImageInfo("");
                 }}
               >
                 Pick another Image
@@ -776,6 +803,7 @@ function HairCutRecommenderScreen(props) {
                 onPress={() => {
                   setShape("");
                   setStatus("");
+                  setSelectImageInfo("");
                 }}
               >
                 Pick another Image
@@ -853,6 +881,7 @@ function HairCutRecommenderScreen(props) {
                 onPress={() => {
                   setShape("");
                   setStatus("");
+                  setSelectImageInfo("");
                 }}
               >
                 Pick another Image
