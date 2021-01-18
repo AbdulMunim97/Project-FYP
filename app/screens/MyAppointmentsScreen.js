@@ -109,25 +109,101 @@ function MyAppointmentsScreen(props) {
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
         >
+          <View
+            style={{
+              //flex: 1,
+              alignSelf: "stretch",
+              flexDirection: "row",
+              // left: 20,
+              marginLeft: "3%",
+              borderBottomColor: "black",
+              borderBottomWidth: 1,
+              borderTopColor: "black",
+              borderTopWidth: 1,
+            }}
+          >
+            <View style={{ flex: 1, alignSelf: "stretch" }}>
+              <Text style={{ fontWeight: "bold", fontSize: 20 }}>Date</Text>
+            </View>
+            {/* Edit these as they are your cells. You may even take parameters to display different data / react elements etc. */}
+            <View style={{ flex: 1, alignSelf: "stretch" }}>
+              <Text style={{ fontWeight: "bold", fontSize: 20 }}>Time</Text>
+            </View>
+            <View style={{ flex: 1, alignSelf: "stretch" }}>
+              <Text style={{ fontWeight: "bold", fontSize: 20, fontSize: 20 }}>
+                Barber
+              </Text>
+            </View>
+            <View style={{ flex: 1, alignSelf: "stretch" }}>
+              <Text style={{ fontWeight: "bold", fontSize: 20 }}>Cancel</Text>
+            </View>
+          </View>
           {appointments.map((item) => {
             return (
-              <View style={styles.container} key={item._id}>
-                <Text style={(styles.title, styles.text)}>{item.time}</Text>
-                <Text style={styles.subTitle}>
-                  {new Date(item.date).toLocaleDateString("en-gb")}
-                </Text>
-                <Text style={styles.subTitle}>{item.barber}</Text>
-
-                <TouchableOpacity>
-                  <Icon
-                    name={"delete"}
-                    size={30}
-                    color={colors.primary}
-                    onPress={() => {
-                      deleteAppointment(item._id);
-                    }}
-                  />
-                </TouchableOpacity>
+              <View
+                style={{
+                  //flex: 1,
+                  alignSelf: "stretch",
+                  flexDirection: "row",
+                  // left: 25,
+                  marginLeft: "2%",
+                  marginTop: "4%",
+                  borderBottomColor: "black",
+                  borderBottomWidth: 1,
+                }}
+              >
+                <View
+                  style={{
+                    flex: 1,
+                    alignSelf: "stretch",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                    {new Date(item.date).toLocaleDateString("en-gb")}
+                  </Text>
+                </View>
+                {/* Edit these as they are your cells. You may even take parameters to display different data / react elements etc. */}
+                <View
+                  style={{
+                    flex: 1,
+                    alignSelf: "stretch",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                    {item.time}
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flex: 1,
+                    alignSelf: "stretch",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                    {item.barber}
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flex: 1,
+                    alignSelf: "stretch",
+                    alignItems: "center",
+                  }}
+                >
+                  <TouchableOpacity>
+                    <Icon
+                      name={"delete"}
+                      size={30}
+                      color={colors.primary}
+                      onPress={() => {
+                        deleteAppointment(item._id);
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
             );
           })}
@@ -145,26 +221,13 @@ function MyAppointmentsScreen(props) {
         <Header title={"My Appointments"} />
       </View>
       <View>{renderList()}</View>
-
-      {/* <ListItem
-            key={item._id}
-            title={item.time}
-            subTitle={new Date(item.date).toLocaleDateString("en-gb")}
-            name={item.barber}
-            // iconFunction={this.deleteAppointment(item._id)}
-          />
-     
-      <ListItem
-        title={"10:00 AM "}
-        subTitle={"27th November 2020"}
-        name={"Nouman"}
-      /> */}
     </ImageBackground>
   );
 }
 const styles = StyleSheet.create({
   background: {
     flex: 1,
+    justifyContent: "flex-start",
   },
   text: {
     color: "#fff",
