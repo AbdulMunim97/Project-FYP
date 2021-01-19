@@ -33,7 +33,7 @@ function LoginScreen({ navigation }) {
   const [emailErr, setEmailErr] = useState("");
   const [invalidErr, setInvalidErr] = useState("");
 
-  const PostData = () => {
+  const PostData = (props) => {
     if (email === "scissorsandrazorz@gmail.com") {
       setEmailErr("Admin Panel is avaliable on Web only");
       return;
@@ -66,9 +66,8 @@ function LoginScreen({ navigation }) {
           } else {
             AsyncStorage.setItem("jwt", data.token);
             AsyncStorage.setItem("user", JSON.stringify(data.user));
-            NativeModules.DevSettings.reload();
-
-            // navigation.navigate("Home");
+            // NativeModules.DevSettings.reload();
+            navigation.navigate("home");
           }
         });
     }

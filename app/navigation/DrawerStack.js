@@ -8,6 +8,8 @@ import EditProfileScreen from "../screens/EditProfileScreen";
 import HelpScreen from "../screens/HelpScreen";
 import DrawerContent from "../screens/DrawerContent";
 import Login from "../screens/LoginScreen";
+import WelcomeScreen from "../screens/WelcomeScreen";
+import AuthNavigator from "./AuthNavigator";
 
 const Drawer = createDrawerNavigator();
 
@@ -20,7 +22,7 @@ const DrawNavigator = ({ navigation }) => (
     <Drawer.Screen name="Edit Profile" component={EditProfileScreen} />
     <Drawer.Screen name="Help" component={HelpScreen} />
 
-    {/* <Drawer.Screen name="Login" component={Login} /> */}
+    <Drawer.Screen name="welcome" component={AuthNavigator} />
   </Drawer.Navigator>
 );
 

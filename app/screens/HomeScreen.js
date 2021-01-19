@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import {
   ImageBackground,
   StyleSheet,
@@ -6,11 +6,32 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-
+import React, { useEffect } from "react";
+import { Text, BackHandler, Alert } from "react-native";
 import AppButton from "../components/AppButton";
 import HomeCard from "../components/HomeCard";
 
 function HomeScreen({ navigation }) {
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert("Hold on!", "Do you want to Exit?", [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel",
+        },
+        { text: "YES", onPress: () => BackHandler.exitApp() },
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
   return (
     <ImageBackground
       //blurRadius={1}

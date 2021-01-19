@@ -106,8 +106,8 @@ export function DrawerContent(props) {
               console.log(res);
             });
 
-            // props.navigation.navigate("Help");
-            NativeModules.DevSettings.reload();
+            props.navigation.navigate("welcome");
+            // NativeModules.DevSettings.reload();
           }}
         />
       </Drawer.Section>
