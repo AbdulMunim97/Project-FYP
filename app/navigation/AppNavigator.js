@@ -28,6 +28,7 @@ const AppNavigator = () => (
         ),
       }}
     />
+
     <Tab.Screen
       name="Appointments"
       component={BookAppointmentScreen}

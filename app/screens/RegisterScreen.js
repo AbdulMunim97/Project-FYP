@@ -65,6 +65,16 @@ function RegisterScreen({ navigation }) {
       )
     ) {
       setEmailErr("Invalid Email");
+    }
+    if (
+      !/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/.test(name) ||
+      !dateOfBirth ||
+      !/^-?\d+\.?\d*$/.test(contact) ||
+      !password ||
+      !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        email
+      )
+    ) {
       return;
     } else {
       fetch("https://sar-server.herokuapp.com/signup", {

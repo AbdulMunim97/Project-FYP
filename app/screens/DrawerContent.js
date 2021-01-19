@@ -105,6 +105,7 @@ export function DrawerContent(props) {
             AsyncStorage.getItem("jwt").then((res) => {
               console.log(res);
             });
+
             // props.navigation.navigate("Help");
             NativeModules.DevSettings.reload();
           }}

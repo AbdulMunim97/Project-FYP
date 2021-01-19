@@ -34,6 +34,10 @@ function LoginScreen({ navigation }) {
   const [invalidErr, setInvalidErr] = useState("");
 
   const PostData = () => {
+    if (email === "scissorsandrazorz@gmail.com") {
+      setEmailErr("Admin Panel is avaliable on Web only");
+      return;
+    }
     if (!password) {
       setPasswordErr("Password is Required");
     }
