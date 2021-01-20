@@ -4,12 +4,12 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import colors from "../config/colors";
 
-function Header({ title, navigation }) {
+function Header({ title, change }) {
   return (
     <View style={styles.background}>
       <Pressable
         style={styles.icon}
-        // onPress={() => navigation.openDrawer()}
+        // onPress={change}
       >
         <Icon name={"menu"} size={30} color={colors.black} />
       </Pressable>

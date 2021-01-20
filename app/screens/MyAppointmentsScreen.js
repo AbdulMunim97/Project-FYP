@@ -42,7 +42,6 @@ function MyAppointmentsScreen(props) {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         setAppointments(result);
       })
 
@@ -94,8 +93,6 @@ function MyAppointmentsScreen(props) {
       ];
     } else {
       appointments.sort(function (a, b) {
-        // Turn your strings into dates, and then subtract them
-        // to get a value that is either negative, positive, or zero.
         return new Date(b.date) - new Date(a.date);
       });
       return [

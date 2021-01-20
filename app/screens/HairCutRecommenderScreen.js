@@ -9,6 +9,7 @@ import {
   Image,
   Platform,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import AppButton from "../components/AppButton";
@@ -252,7 +253,10 @@ function HairCutRecommenderScreen(props) {
               }
             });
           } else {
-            alert("image invalid");
+            Alert.alert(
+              "OOPS...",
+              "image invalid.. Kindly select another Image"
+            );
             setSelectImageInfo("");
             setStatus("");
             setImage("");

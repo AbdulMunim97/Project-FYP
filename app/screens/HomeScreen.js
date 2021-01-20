@@ -57,35 +57,6 @@ function HomeScreen({ navigation }) {
             image={require("../assets/services-.jpg")}
           />
         </TouchableOpacity>
-        {/* <View style={styles.background} style={styles.buttonContainer}>
-          <AppButton
-            //change={() => {
-            //navigation.navigate("Login");
-            //}}
-            title="Hair Recommender"
-            color="primary"
-          />
-          <AppButton
-            change={() => navigation.navigate("Book Appointment")}
-            title="Book Appointment"
-            color="secondary"
-          />
-          <AppButton
-            change={() => navigation.navigate("Products")}
-            title="Products"
-            color="primary"
-          />
-          <AppButton
-            change={() => navigation.navigate("Services")}
-            title="Services"
-            color="secondary"
-          />
-          <AppButton
-            change={() => navigation.navigate("Dashboard")}
-            title="Dashboard"
-            color="primary"
-          />
-        </View> */}
       </ScrollView>
     </ImageBackground>
   );

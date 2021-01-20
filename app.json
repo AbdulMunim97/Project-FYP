@@ -20,6 +20,9 @@
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
+    },
+    "android": {
+      "package": "com.scissors.razorz"
     }
   }
 }

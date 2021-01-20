@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import colors from "../config/colors";
 
@@ -39,23 +40,29 @@ function BookAppointmentScreen({ navigation }) {
 
   const handleDateConfirm = (date) => {
     hideDatePicker();
-    setDate(date);
+
+    setDate(
+      new Date(
+        Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
+      )
+    );
+    setBookedErr("");
     setDateErr("");
   };
-  const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+  // const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
 
-  const showTimePicker = () => {
-    setTimePickerVisibility(true);
-  };
+  // const showTimePicker = () => {
+  //   setTimePickerVisibility(true);
+  // };
 
-  const hideTimePicker = () => {
-    setTimePickerVisibility(false);
-  };
+  // const hideTimePicker = () => {
+  //   setTimePickerVisibility(false);
+  // };
 
-  const handleTimeConfirm = (time) => {
-    // console.warn("A Time has been picked: ", time);
-    hideTimePicker();
-  };
+  // const handleTimeConfirm = (time) => {
+  //   // console.warn("A Time has been picked: ", time);
+  //   hideTimePicker();
+  // };
 
   const timeArray = [
     "9:00 AM",
@@ -74,7 +81,6 @@ function BookAppointmentScreen({ navigation }) {
     "10:00 PM",
   ];
   // const array2 = ["9:00 AM", "10:00 AM", "11:00 AM"];
-  // const barberArray = ["Nomi (Signature)", "Zeeshan", "Ali", "Munim"];
 
   // const printDate = () => {
   //   let difference = time.filter((x) => !timeArray.includes(x));
@@ -135,8 +141,9 @@ function BookAppointmentScreen({ navigation }) {
               setDate("");
               setTime("");
               setBarber("");
-              alert(
-                "Appointment Booked.. You can check your appointments in My Appointment Page"
+              Alert.alert(
+                "Appointment Booked",
+                "You can check your appointments in My Appointment Page"
               );
               navigation.navigate("Home");
             }
@@ -200,6 +207,7 @@ function BookAppointmentScreen({ navigation }) {
           onValueChange={(itemValue, itemIndex) => {
             setBarber(itemValue);
             setBarberErr("");
+            setBookedErr("");
           }}
         >
           <Picker.Item label="Select a barber" value="" />
@@ -231,6 +239,7 @@ function BookAppointmentScreen({ navigation }) {
           onValueChange={(itemValue, itemIndex) => {
             setTime(itemValue);
             setTimeErr("");
+            setBookedErr("");
           }}
         >
           <Picker.Item label="Select Time" value="" />
@@ -270,14 +279,14 @@ function BookAppointmentScreen({ navigation }) {
           onCancel={hideDatePicker}
         />
       </View>
-      <View>
+      {/* <View>
         <DateTimePickerModal
           isVisible={isTimePickerVisible}
           mode="time"
           onConfirm={handleTimeConfirm}
           onCancel={hideTimePicker}
         />
-      </View>
+      </View> */}
     </ImageBackground>
   );
 }

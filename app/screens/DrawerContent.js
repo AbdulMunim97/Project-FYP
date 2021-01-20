@@ -44,6 +44,19 @@ export function DrawerContent(props) {
             />
             <DrawerItem
               icon={({ color, size }) => (
+                <Icon
+                  name="file-document-box-multiple-outline"
+                  color={color}
+                  size={size}
+                />
+              )}
+              label="All Reviews"
+              onPress={() => {
+                props.navigation.navigate("All Reviews");
+              }}
+            />
+            <DrawerItem
+              icon={({ color, size }) => (
                 <Icon name="pencil-box-outline" color={color} size={size} />
               )}
               label="Add Review"
@@ -64,6 +77,7 @@ export function DrawerContent(props) {
                 props.navigation.navigate("My Reviews");
               }}
             />
+
             <DrawerItem
               icon={({ color, size }) => (
                 <Icon name="calendar" color={color} size={size} />
@@ -101,10 +115,8 @@ export function DrawerContent(props) {
           )}
           label="Sign Out"
           onPress={() => {
+            props.navigation.navigate("Home");
             AsyncStorage.clear();
-            AsyncStorage.getItem("jwt").then((res) => {
-              console.log(res);
-            });
 
             props.navigation.navigate("welcome");
             // NativeModules.DevSettings.reload();
