@@ -102,7 +102,7 @@ function EditProfileScreen({ navigation }) {
             // history.push("/signin");
 
             console.log(result);
-            navigation.navigate("Welcome");
+            navigation.navigate("welcome");
           })
 
           .catch((err) => {
