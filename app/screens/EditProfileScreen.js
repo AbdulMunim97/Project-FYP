@@ -96,12 +96,13 @@ function EditProfileScreen({ navigation }) {
         })
           .then((res) => res.json())
           .then((result) => {
+            AsyncStorage.clear();
             // localStorage.clear();
             // dispatch({ type: "CLEAR" });
             // history.push("/signin");
 
             console.log(result);
-            navigation.navigate("Home");
+            navigation.navigate("Welcome");
           })
 
           .catch((err) => {
@@ -208,51 +209,18 @@ function EditProfileScreen({ navigation }) {
         <View style={styles.inputContainer}>
           <Text style={{ color: "red" }}>{contactErr}</Text>
         </View>
-        {/* <View style={styles.inputContainer}>
-          <Pressable
-            style={styles.input}
-            placeholder={"Date of Birth"}
-            placeholderTextColor={"rgba(255,255,255,0.7)"}
-            underlineColorAndroid="transparent"
-            onPress={showDatePicker}
-          >
-            <Text style={styles.text}>Date Of Birth</Text>
-          </Pressable>
-          <Icon
-            style={styles.inputIcons}
-            name={"ios-calendar"}
-            size={28}
-            color={"rgba(255,255,255,0.7) "}
-          />
+        <View style={styles.inputContainer}>
+          <Text style={{ color: "black", fontWeight: "bold", marginLeft: 10 }}>
+            Warning: You will be logged out after editing your profile
+          </Text>
         </View>
-        <View>
-          <DateTimePickerModal
-            isVisible={isDatePickerVisible}
-            mode="date"
-            datePickerModeAndroid={"spinner"}
-            minimumDate={new Date(1965, 1, 1)}
-            maximumDate={new Date(2011, 1, 1)}
-            date={new Date()}
-            onConfirm={handleDateConfirm}
-            onCancel={hideDatePicker}
-          />
-        </View> */}
-        {/* <View style={styles.signupBtn}>
-          <AppButton
-            // change={() => {
-            //   navigation.navigate("Login");
-            // }}
-            title=""
-            color="Primary"
-          />
-        </View> */}
+
         <View style={styles.loginBtn}>
           <AppButton
             title="Edit Profile"
             color="primary"
             change={() => {
               updateProfile();
-              // navigation.navigate("Login");
             }}
           />
         </View>
