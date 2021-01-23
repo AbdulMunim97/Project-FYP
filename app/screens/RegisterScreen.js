@@ -102,7 +102,6 @@ function RegisterScreen({ navigation }) {
   };
   return (
     <ImageBackground
-      //blurRadius={5}
       style={styles.background}
       source={require("../assets/background1.jpg")}
     >
@@ -247,7 +246,7 @@ function RegisterScreen({ navigation }) {
         <View>
           <Text style={{ color: "red" }}>{invalidErr}</Text>
         </View>
-        {/* <AppText style={{ paddingLeft: 65, marginBottom: -10}}>Already have an Account?</AppText> */}
+
         <View style={styles.loginBtn}>
           <AppButton
             title="Login"
@@ -264,8 +263,6 @@ function RegisterScreen({ navigation }) {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    //justifyContent: "center",
-    //alignItems: "center",
   },
   input: {
     width: WIDTH - 15,
@@ -283,7 +280,6 @@ const styles = StyleSheet.create({
     left: 37,
   },
   inputContainer: {
-    // marginTop: 15,
     top: 30,
   },
   btnEye: {
@@ -293,12 +289,10 @@ const styles = StyleSheet.create({
   },
   loginBtn: {
     width: WIDTH - 15,
-    //paddingTop: -100
   },
   signupBtn: {
     marginTop: 50,
     width: WIDTH - 15,
-    //paddingLeft: 10,
   },
   text: {
     fontSize: 16,

@@ -36,7 +36,6 @@ function DealsScreen({ navigation }) {
 
   return (
     <ImageBackground
-      //blurRadius={5}
       style={styles.background}
       source={require("../assets/background1.jpg")}
     >

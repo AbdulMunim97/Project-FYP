@@ -33,8 +33,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   icon: {
-    //flexDirection: "column",
-    //position: "relative",
     top: "45%",
     right: "46%",
   },

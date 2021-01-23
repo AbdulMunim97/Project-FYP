@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, NativeModules } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Title, Drawer } from "react-native-paper";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 
@@ -7,9 +7,6 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function DrawerContent(props) {
-  //   const paperTheme = useTheme();
-
-  //   const { signOut, toggleTheme } = React.useContext(AuthContext);
   const [username, setUsername] = useState("");
 
   AsyncStorage.getItem("user").then((res) => {
@@ -119,7 +116,6 @@ export function DrawerContent(props) {
             AsyncStorage.clear();
 
             props.navigation.navigate("welcome");
-            // NativeModules.DevSettings.reload();
           }}
         />
       </Drawer.Section>

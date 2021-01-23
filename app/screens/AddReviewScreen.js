@@ -11,7 +11,6 @@ import {
 import colors from "../config/colors";
 import AppButton from "../components/AppButton";
 import Header from "../components/Header";
-import AppNavigator from "../navigation/AppNavigator";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width: WIDTH } = Dimensions.get("window");
@@ -61,7 +60,6 @@ function AddReviewScreen({ navigation }) {
 
   return (
     <ImageBackground
-      //blurRadius={5}
       style={styles.background}
       source={require("../assets/background1.jpg")}
     >
@@ -83,10 +81,10 @@ function AddReviewScreen({ navigation }) {
           }}
         />
       </View>
-      <View style={styles.inputContainer}>
+      <View>
         <Text style={{ color: "red" }}>{titleErr}</Text>
       </View>
-      <View style={styles.inputContainer}>
+      <View>
         <TextInput
           style={styles.input}
           autoCapitalize="sentences"
@@ -102,7 +100,7 @@ function AddReviewScreen({ navigation }) {
           }}
         />
       </View>
-      <View style={styles.inputContainer}>
+      <View>
         <Text style={{ color: "red" }}>{bodyErr}</Text>
       </View>
       <View style={styles.AddBtn}>
@@ -114,9 +112,6 @@ function AddReviewScreen({ navigation }) {
           }}
         />
       </View>
-      <View>
-        <AppNavigator />
-      </View>
     </ImageBackground>
   );
 }
@@ -125,7 +120,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.light,
     alignItems: "center",
-    //justifyContent: "center",
   },
   inputTitle: {
     width: WIDTH - 50,
@@ -146,9 +140,6 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.65)",
     color: "rgba(255,255,255,0.7)",
     marginHorizontal: 20,
-  },
-  inputContainer: {
-    // marginTop: 25,
   },
   AddBtn: {
     width: "98%",

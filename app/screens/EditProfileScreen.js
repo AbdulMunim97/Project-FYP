@@ -7,34 +7,17 @@ import {
   TextInput,
   Dimensions,
   Text,
-  Pressable,
 } from "react-native";
 import Header from "../components/Header";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Icon from "react-native-vector-icons/Ionicons";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import AppButton from "../components/AppButton";
 
 const { width: WIDTH } = Dimensions.get("window");
 
 function EditProfileScreen({ navigation }) {
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  const handleDateConfirm = (date) => {
-    console.warn("A date has been picked: ", date);
-    hideDatePicker();
-  };
-
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
@@ -114,7 +97,6 @@ function EditProfileScreen({ navigation }) {
 
   return (
     <ImageBackground
-      //blurRadius={5}
       style={styles.background}
       source={require("../assets/background1.jpg")}
     >
@@ -231,8 +213,6 @@ function EditProfileScreen({ navigation }) {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    //justifyContent: "center",
-    //alignItems: "center",
   },
   input: {
     width: WIDTH - 15,
@@ -250,7 +230,6 @@ const styles = StyleSheet.create({
     left: 37,
   },
   inputContainer: {
-    // marginTop: 15,
     top: 30,
   },
   btnEye: {
@@ -265,7 +244,6 @@ const styles = StyleSheet.create({
   signupBtn: {
     marginTop: 50,
     width: WIDTH - 15,
-    //paddingLeft: 10,
   },
   text: {
     fontSize: 16,

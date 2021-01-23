@@ -122,7 +122,7 @@ function MyAppointmentsScreen(props) {
             <View style={{ flex: 1, alignSelf: "stretch" }}>
               <Text style={{ fontWeight: "bold", fontSize: 20 }}>Date</Text>
             </View>
-            {/* Edit these as they are your cells. You may even take parameters to display different data / react elements etc. */}
+
             <View style={{ flex: 1, alignSelf: "stretch" }}>
               <Text style={{ fontWeight: "bold", fontSize: 20 }}>Time</Text>
             </View>
@@ -139,10 +139,9 @@ function MyAppointmentsScreen(props) {
             return (
               <View
                 style={{
-                  //flex: 1,
                   alignSelf: "stretch",
                   flexDirection: "row",
-                  // left: 25,
+
                   marginLeft: "2%",
                   marginTop: "4%",
                   borderBottomColor: "black",
@@ -160,7 +159,6 @@ function MyAppointmentsScreen(props) {
                     {new Date(item.date).toLocaleDateString("en-gb")}
                   </Text>
                 </View>
-                {/* Edit these as they are your cells. You may even take parameters to display different data / react elements etc. */}
                 <View
                   style={{
                     flex: 1,

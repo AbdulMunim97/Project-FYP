@@ -1,5 +1,4 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
 import AuthNavigator from "./app/navigation/AuthNavigator";
@@ -25,9 +24,6 @@ export default function App() {
   return (
     <NavigationContainer>
       <Routing />
-      {/* <DrawerStack /> */}
-      {/* <AppNavigator /> */}
-      {/* <AuthNavigator /> */}
     </NavigationContainer>
   );
 }

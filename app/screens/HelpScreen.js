@@ -5,10 +5,9 @@ import AppText from "../components/AppText";
 import Header from "../components/Header";
 import colors from "../config/colors";
 
-function HelpScreen({ navigation }) {
+function HelpScreen() {
   return (
     <ImageBackground
-      //blurRadius={5}
       style={styles.background}
       source={require("../assets/background1.jpg")}
     >
@@ -27,7 +26,6 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     justifyContent: "flex-start",
-    //alignItems: "center",
   },
   textContainer: {
     padding: 20,

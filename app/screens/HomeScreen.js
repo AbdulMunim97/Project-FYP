@@ -1,14 +1,13 @@
-// import React from "react";
+import React, { useEffect } from "react";
 import {
   ImageBackground,
   StyleSheet,
-  View,
   ScrollView,
   TouchableOpacity,
+  BackHandler,
+  Alert,
 } from "react-native";
-import React, { useEffect } from "react";
-import { Text, BackHandler, Alert } from "react-native";
-import AppButton from "../components/AppButton";
+
 import HomeCard from "../components/HomeCard";
 
 function HomeScreen({ navigation }) {
@@ -34,7 +33,6 @@ function HomeScreen({ navigation }) {
   }, []);
   return (
     <ImageBackground
-      //blurRadius={1}
       style={styles.background}
       source={require("../assets/background1.jpg")}
     >
@@ -65,7 +63,6 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     justifyContent: "center",
-    //alignItems: "center",
   },
   buttonContainer: {
     padding: 20,

@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import colors from "../config/colors";
 
 import { Picker } from "@react-native-picker/picker";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -49,20 +48,6 @@ function BookAppointmentScreen({ navigation }) {
     setBookedErr("");
     setDateErr("");
   };
-  // const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
-
-  // const showTimePicker = () => {
-  //   setTimePickerVisibility(true);
-  // };
-
-  // const hideTimePicker = () => {
-  //   setTimePickerVisibility(false);
-  // };
-
-  // const handleTimeConfirm = (time) => {
-  //   // console.warn("A Time has been picked: ", time);
-  //   hideTimePicker();
-  // };
 
   const timeArray = [
     "9:00 AM",
@@ -157,7 +142,6 @@ function BookAppointmentScreen({ navigation }) {
 
   return (
     <ImageBackground
-      //blurRadius={5}
       style={styles.background}
       source={require("../assets/background1.jpg")}
     >
@@ -279,14 +263,6 @@ function BookAppointmentScreen({ navigation }) {
           onCancel={hideDatePicker}
         />
       </View>
-      {/* <View>
-        <DateTimePickerModal
-          isVisible={isTimePickerVisible}
-          mode="time"
-          onConfirm={handleTimeConfirm}
-          onCancel={hideTimePicker}
-        />
-      </View> */}
     </ImageBackground>
   );
 }
@@ -294,21 +270,17 @@ function BookAppointmentScreen({ navigation }) {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    //justifyContent: "center",
+
     alignItems: "center",
   },
   button: {
     width: "80%",
   },
-  picker: {
-    // backgroundColor: "rgba(0,0,0,0.65)",
-    // color: "rgba(255,255,255,0.7)",
-  },
+
   pickerContainer: {
     backgroundColor: "rgba(0,0,0,0.65)",
     borderRadius: 10,
-    // top: 30,
-    //bottom: 30,
+
     width: "80%",
   },
   input: {
@@ -317,7 +289,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     fontSize: 16,
     paddingLeft: 45,
-    // backgroundColor: "rgba(0,0,0,0.65)",
+
     color: "rgba(255,255,255,0.7)",
     marginHorizontal: 25,
   },
@@ -327,7 +299,6 @@ const styles = StyleSheet.create({
     left: 10,
   },
   inputContainer: {
-    // marginTop: 15,
     top: 30,
   },
   text: {
@@ -336,24 +307,5 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     left: -30,
   },
-  // button: {
-  //   backgroundColor: colors.primary,
-  //   borderRadius: 10,
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  //   padding: 10,
-  //   height: 45,
-  //   marginVertical: 10,
-  //   width: "40%",
-  // },
-  // buttonText: {
-  //   color: "#fff",
-  //   fontSize: 18,
-  //   fontFamily: "Roboto",
-  //   textTransform: "uppercase",
-  //   fontWeight: "bold",
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  // },
 });
 export default BookAppointmentScreen;

@@ -7,7 +7,6 @@ import {
   TextInput,
   Text,
   Dimensions,
-  NativeModules,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Formik } from "formik";
@@ -16,8 +15,6 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import ErrorMessage from "../components/ErrorMessage";
 import AppButton from "../components/AppButton";
-
-// import UserContext from "../reducers/usercontext";
 
 const { width: WIDTH } = Dimensions.get("window");
 
@@ -66,7 +63,7 @@ function LoginScreen({ navigation }) {
           } else {
             AsyncStorage.setItem("jwt", data.token);
             AsyncStorage.setItem("user", JSON.stringify(data.user));
-            // NativeModules.DevSettings.reload();
+
             navigation.navigate("home");
           }
         });
@@ -75,7 +72,6 @@ function LoginScreen({ navigation }) {
 
   return (
     <ImageBackground
-      //blurRadius={5}
       style={styles.background}
       source={require("../assets/background1.jpg")}
     >
@@ -85,9 +81,9 @@ function LoginScreen({ navigation }) {
         onSubmit={(values) => console.log(values)}
         validationSchema={validationSchema}
       >
-        {({ handleChange, handleSubmit, errors, setFieldTouched, touched }) => (
+        {({ handleChange, errors, setFieldTouched, touched }) => (
           <>
-            <View style={styles.inputContainer}>
+            <View>
               <TextInput
                 style={styles.input}
                 autoCapitalize="none"
@@ -112,11 +108,11 @@ function LoginScreen({ navigation }) {
                 color={"rgba(255,255,255,0.7) "}
               />
             </View>
-            <View style={styles.inputContainer}>
+            <View>
               <Text style={{ color: "red" }}>{emailErr}</Text>
             </View>
             <ErrorMessage error={errors.email} visible={touched.email} />
-            <View style={styles.inputContainer}>
+            <View>
               <TextInput
                 style={styles.input}
                 autoCapitalize="none"
@@ -139,11 +135,8 @@ function LoginScreen({ navigation }) {
                 size={28}
                 color={"rgba(255,255,255,0.7) "}
               />
-              {/* <TouchableOpacity style={styles.btnEye}>
-                  <Icon name={"ios-eye"} size={26} color={"rgba(255,255,255,0.7) "} />
-                </TouchableOpacity>  */}
             </View>
-            <View style={styles.inputContainer}>
+            <View>
               <Text style={{ color: "red" }}>{passwordErr}</Text>
             </View>
             <ErrorMessage error={errors.password} visible={touched.password} />
@@ -151,17 +144,15 @@ function LoginScreen({ navigation }) {
               <AppButton
                 title="Login"
                 color="primary"
-                //change={handleSubmit}
                 change={() => {
                   PostData();
-                  // navigation.navigate("Home");
                 }}
               />
             </View>
             <View>
               <Text style={{ color: "red" }}>{invalidErr}</Text>
             </View>
-            {/* <AppText style={{ color: "#000"}}>Don't have an Account?</AppText> */}
+
             <View style={styles.signupBtn}>
               <AppButton
                 title="SignUp"
@@ -180,9 +171,8 @@ function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    //justifyContent: "center",
+
     alignItems: "center",
-    //backgroundColor: colors.medium,
   },
   logo: {
     width: 100,
@@ -207,22 +197,13 @@ const styles = StyleSheet.create({
     top: 8,
     left: 37,
   },
-  inputContainer: {
-    // marginTop: 15,
-  },
-  // btnEye: {
-  //   position: "absolute",
-  //   top: 8,
-  //   right: 37,
-  // },
+
   loginBtn: {
     marginTop: 30,
     width: WIDTH - 15,
-    //paddingLeft: 10,
   },
   signupBtn: {
     width: WIDTH - 15,
-    //paddingLeft: 10
   },
 });
 export default LoginScreen;

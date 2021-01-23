@@ -343,7 +343,6 @@ function HairCutRecommenderScreen(props) {
               width: "70%",
               alignItems: "center",
               left: 28,
-              // marginTop: 100,
             }}
           >
             <AppButton
@@ -899,7 +898,6 @@ function HairCutRecommenderScreen(props) {
 
   return (
     <ImageBackground
-      //blurRadius={5}
       style={styles.background}
       source={require("../assets/background1.jpg")}
     >
@@ -921,13 +919,11 @@ function HairCutRecommenderScreen(props) {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    //justifyContent: "center",
+
     alignItems: "center",
   },
   buttonContainer: {
-    //padding: 20,
     width: "95%",
-    //marginVertical: 5,
   },
   imageContainer: {
     borderRadius: 10,

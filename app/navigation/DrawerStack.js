@@ -8,13 +8,11 @@ import EditProfileScreen from "../screens/EditProfileScreen";
 import HelpScreen from "../screens/HelpScreen";
 import DrawerContent from "../screens/DrawerContent";
 import AllReviewsScreen from "../screens/AllReviewsScreen";
-import Login from "../screens/LoginScreen";
-import WelcomeScreen from "../screens/WelcomeScreen";
 import AuthNavigator from "./AuthNavigator";
 
 const Drawer = createDrawerNavigator();
 
-const DrawNavigator = ({ navigation }) => (
+const DrawNavigator = () => (
   <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
     <Drawer.Screen name="Home" component={AppNavigator} />
     <Drawer.Screen name="Add Review" component={AddReviewScreen} />

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Button, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -13,9 +13,6 @@ function ListItem({ title, subTitle, name, iconFunction }) {
       <AppText style={styles.subTitle}>{subTitle}</AppText>
       <AppText style={styles.subTitle}>{name}</AppText>
       <TouchableOpacity onPress={iconFunction}>
-        {/* <Button style={styles.icon} title="">
-          <Icon name={"delete"} size={30} color={colors.black} />
-        </Button> */}
         <Icon name={"delete"} size={30} color={colors.primary} />
       </TouchableOpacity>
     </View>

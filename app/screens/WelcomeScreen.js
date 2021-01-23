@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    //padding: 20,
     width: "95%",
     marginVertical: 5,
   },

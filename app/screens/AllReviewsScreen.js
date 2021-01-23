@@ -6,14 +6,13 @@ import {
   RefreshControl,
   Text,
   View,
-  TouchableOpacity,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
 import { useIsFocused } from "@react-navigation/native";
 
 import colors from "../config/colors";
-import ServiceCard from "../components/ServiceCard";
+
 import Header from "../components/Header";
 import { useEffect } from "react";
 
@@ -60,7 +59,6 @@ function AllReviewsScreen(props) {
 
   return (
     <ImageBackground
-      //blurRadius={5}
       style={styles.background}
       source={require("../assets/background1.jpg")}
     >
